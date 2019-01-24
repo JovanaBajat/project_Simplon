@@ -1,0 +1,97 @@
+<div class="redact-proposition" data-ng-init="init()">
+        <div class="container-div">
+            <!-- Header -->
+            <div class="header">
+                <div class="header-content proposition">
+                    <img class="icon" 
+                        src="images/icons/create-prop.svg" />
+                    <div class="title">New proposition</div> 
+                </div>
+        
+                <div class="header-action" ng-if="myForm.title.$dirty"
+                    ng-click="reset()">
+                    <img src="images/icons/close-grey.svg">
+                </div>
+            </div>
+            <!-- Content -->
+            <div class="content">
+                <!-- Title -->
+                <div class="input-area" ng-class="{'no-margin': !myForm.title.$dirty}">
+                    <div class="text" ng-if="myForm.title.$dirty">Your title</div>
+                    <form class="my-form" name="myForm">
+                        <input  type="text" name="title"
+                                ng-model="title"
+                                required
+                                ng-model-options="{
+                                    'updateOn': 'default blur',
+                                    'debounce': {
+                                    'default': 250,
+                                    'blur': 0
+                                    }
+                                }"
+                                ng-change="makeFormDirty(true)"
+                                placeholder="ur title goes here"/>
+                    </form>
+                </div>
+                <!-- Description -->
+                <div class="input-area" ng-if="myForm.title.$dirty">
+                    <div class="text">Description</div>
+                    <div class="input-area" ng-class="{'no-margin': !myForm.title.$dirty}">
+                        <form class="redact-content" name="myForm">
+                            <input  type="text" name="description"
+                                    ng-model="description"
+                                    required
+                                    ng-model-options="{
+                                        'updateOn': 'default blur',
+                                        'debounce': {
+                                        'default': 250,
+                                        'blur': 0
+                                        }
+                                    }"
+                                    ng-change="makeFormDirty(true)"
+                                    placeholder="ur description goes here"/>
+                        </form>
+                    </div>
+                    <!-- Attachment box -->
+                    <!-- <div class="attachments">
+                        <div class="container-attachments">
+                            <div class="add-attachment" ng-if="redact.attachmentsNum == 0"
+                                ng-click="uploadAttachment()">{{ translation.ADD_AN_IMAGE }}</div>
+    
+                            <div class="list-attachments" ng-if="redact.attachmentsNum > 0">
+                                <div class="attachment" ng-repeat="attachment in redact.attachments"
+                                    ng-style="{ 
+                                        'background-image': 'url({{ attachment.preview }})'
+                                    }">
+                                    <div class="del" ng-click="removeAttachment(attachment)">
+                                        <img src="images/icons/cross-red.svg" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="icon-attachment" ng-click="uploadAttachment()">
+                                <input id="file-input-hidden" multiple accept="image/x-png,image/jpg,image/jpeg" type="file" style="display: none"/>
+                                <i class="fa fa-camera"></i>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <!-- Action buttons -->
+                <div class="actions" ng-if="myForm.title.$dirty">
+                    <div class="action">
+                        <div class="button grey" ng-click="reset()">Cancel</div>
+                    </div>
+                    <div class="action">
+                        <div class="button blue" 
+                            ng-class="{
+                                'is-disabled': myForm.description == ''
+                            }"
+                            ng-click="submitProp()">Send</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    

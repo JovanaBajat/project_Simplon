@@ -1,0 +1,22 @@
+.home-wrapper {
+    margin-top: 60px;
+    .proposition-wrapper {
+        display: flex;
+        align-items: center;
+        margin: 0 30px 30px 30px;
+        .proposition {
+        width: 80%;
+        padding: 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-right: 30px;
+        text-align: center;
+        border: 2px solid $violet;
+        }
+        > i {
+            font-size: 30px;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+    }
+}

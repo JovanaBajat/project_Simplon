@@ -1,0 +1,222 @@
+.redact-proposition {
+    width: 100%;
+    border-radius: 5px;
+    background-color: $white;
+    
+    .container-div {
+        width: 90%;
+        margin: 30px;
+        padding: 15px;
+        border-radius: 5px;
+        border: 1px solid rgba($violet, 0.1);
+        background-color: rgba($violet, 0.03);
+    }
+
+    .header {
+        width: 100%;
+        position: relative;
+        padding-bottom: 15px;
+    
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+
+            &.proposition > .icon {
+                width: 18px;
+                height: 18px;
+                margin-right: 10px;
+            }
+            
+            .title {
+                font-size: 17px;
+            }
+        }
+
+        .header-action {
+            top: 0px;
+            right: 0px;
+            width: 15px;
+            height: 15px;
+            cursor: pointer;
+            position: absolute;
+            
+            > img {
+                width: 15px;
+                height: 15px;
+            }
+        }
+    }
+
+    .content {
+        width: 100%;
+        padding: 0px 0px 20px 0px;
+        
+        input {
+            width: 100%;
+            height: 50px;
+            padding: 15px 15px;
+            border-radius: 5px;
+            background-color: #ffffff;
+            border: solid 1px #dfdedf;
+
+            &.border-radius-less {
+                border-bottom-left-radius: 0px;
+                border-bottom-right-radius: 0px;
+            }
+
+            &.border-bottom-less {
+                border-bottom: none;
+            }
+
+            &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+                color: rgba($violet, 0.3);
+            }
+            &::-moz-placeholder { /* Firefox 19+ */
+                color: rgba($violet, 0.3);
+            }
+            &:-ms-input-placeholder { /* IE 10+ */
+                color: rgba($violet, 0.3);
+            }
+            &:-moz-placeholder { /* Firefox 18- */
+                color: rgba($violet, 0.3);
+            }
+        }
+
+        .input-area {
+            width: 100%;
+            position: relative;
+            padding-bottom: 10px;
+
+            &.no-margin {
+                padding-bottom: 0px;
+            }
+
+            .text {
+                padding-bottom: 10px;
+                color: rgba($violet, 0.5);
+                text-align: left;
+            }
+        }
+
+        // .attachments {
+        //     width: 100%;
+        //     display: flex;
+        //     background-color: #ffffff;
+        //     border-bottom-left-radius: 5px;
+        //     border-bottom-right-radius: 5px;
+        //     border-left: solid 1px #dfdedf;
+        //     border-right: solid 1px #dfdedf;
+        //     border-bottom: solid 1px #dfdedf;
+            
+        //     .container-attachments {
+        //         width: 100%;
+        //         height: 100%;
+        //         display: flex;
+        //         padding: 10px 15px;
+        //         border-bottom-left-radius: 5px;
+        //         border-bottom-right-radius: 5px;
+        //         background-color: rgba($violet, 0.03);
+
+        //         display: flex;
+
+        //         .add-attachment {
+        //             flex: 1;
+        //             cursor: pointer;
+        //             color: rgba($violet, 0.3);
+        //         }
+
+        //         .list-attachments {
+        //             flex: 1;
+        //             display: flex;
+        //             flex-wrap: wrap;
+
+        //             .attachment {
+        //                 width: 80px;
+        //                 height: 80px;
+        //                 margin-right: 10px;
+        //                 border-radius: 5px;
+        //                 position: relative;
+        //                 background-size: cover;
+        //                 background-position: center;
+        //                 background-repeat: no-repeat;
+
+        //                 .del {
+        //                     top: 5px;
+        //                     right: 5px;
+        //                     width: 14px;
+        //                     height: 14px;
+        //                     cursor: pointer;
+        //                     position: absolute;
+
+        //                     > img {
+        //                         width: 100%;
+        //                         height: 100%;
+        //                     }
+        //                 }
+        //             }
+        //         }
+
+        //         .icon-attachment {
+        //             right: 15px;
+        //             width: 20px;
+        //             height: 16px;
+        //             bottom: 20px;
+        //             cursor: pointer;
+        //             text-align: right;
+        //             position: absolute;
+                    
+        //             > i {
+        //                 font-size: 15px;
+        //                 color: rgba($violet, 0.15);
+        //             }
+        //         }
+        //     }
+        // }
+    }
+
+    .footer {
+        width: 100%;
+        
+        .actions {
+            width: 100%;
+            display: flex;
+            margin-top: 20px;
+
+            .action {
+                flex: 1;
+
+                &:first-child {
+                    margin-right: 5px;
+                }
+
+                &:last-child {
+                    margin-left: 5px;
+                }
+                
+                .button {
+                    text-align: center;
+                    border-radius: 5px;
+                    width: 100%;
+                    cursor: pointer;
+                    padding: 15px;
+                    
+                    &.grey {
+                        border: solid 1px #dfdedf;
+                        background-color: rgba($violet, 0.03); 
+                    }
+                    
+                    &.blue {
+                        border: solid 1px rgba($blue, 0.5);
+                        background-color: rgba($blue, 0.15);
+                    }
+
+                    &.is-disabled {
+                        opacity: 0.5;
+                        cursor: not-allowed;
+                    }
+                }
+            }
+        }
+    }
+}
