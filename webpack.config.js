@@ -53,5 +53,5 @@ module.exports = {
     new ExtractTextPlugin('assets/css/styles.css'),
     new CopyWebpackPlugin([
     ])
-  ]
+  ],
 };

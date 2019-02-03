@@ -1,6 +1,6 @@
 const SQL = require('sql-template-strings');
 const client = require('../db');
-const Moment = require('moment');
+const moment = require('moment');
 
 const getPropositions = async function () {
     const query = SQL`
@@ -16,21 +16,22 @@ const getPropositions = async function () {
  
 
 const addProposition = async function (proposition) {
+    const timestamp = moment();
     // 1 - status accepted, 2 - status refused, 3 - status pending
     const STATUS_PENDING = 3;
     const insertQuery = SQL`
     INSERT INTO proposition_pro (
+        usr_id,
         pro_title, 
         pro_description,
-        usr_id,
         pro_timestamp, 
         pro_status
 
     ) values (
+        ${proposition.usr_id}, 
         ${proposition.title}, 
         ${proposition.description}, 
-        ${proposition.author}, 
-        ${Moment.now()}, 
+        ${timestamp}, 
         ${STATUS_PENDING}
     )
     `

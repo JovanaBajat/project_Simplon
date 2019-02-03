@@ -10,6 +10,8 @@ server.use(cors());
 server.use(cookieParser());
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }))
+
+server.use(express.static(__dirname + './../dist'))
 server.use(router);
 
 server.listen( 8888, () => {

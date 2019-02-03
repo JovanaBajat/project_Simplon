@@ -32,7 +32,7 @@ const insertNewUser = async function (newUser) {
         usr_email,
         usr_job,
         usr_password,
-        usr_is_admin
+        usr_is_admin,
         usr_photo
     ) VALUES (
         ${newUser.firstname},
@@ -40,7 +40,7 @@ const insertNewUser = async function (newUser) {
         ${newUser.email},
         ${newUser.job},
         ${newUser.encryptedPassword},
-        ${newUser.isAdmin}
+        ${newUser.isAdmin},
         ${newUser.photo}
         )
         `
@@ -118,7 +118,7 @@ const getUserById = async function (id) {
     `
     const queryResults = await client.query(query)
 
-    return queryResults
+    return queryResults.rows[0]
 }
 
 module.exports = { getUserFromEmail, encryptPassword, insertNewUser, verifyUser, editUser, getUsers, getUserById }

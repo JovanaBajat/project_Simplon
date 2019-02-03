@@ -7,9 +7,9 @@ let redact = {
             $scope.init = function () {
                 console.log('redact -', $scope);
             }
-            $scope.submitProp = function () { 
-                console.log("HERE");
-                $http({ method: 'POST', url: 'http://localhost:8888/add', data: {title: $scope.title, description: $scope.description, author: $scope.author}, withCredentials: true })
+            $scope.submitProp = function () {
+                console.log("HERE-",$scope);
+                $http({ method: 'POST', url: 'http://localhost:8888/pro/add', data: {title: $scope.title, description: $scope.description} })
                     .then(function (response) {
                         console.log(response);
                     }, function (response) {

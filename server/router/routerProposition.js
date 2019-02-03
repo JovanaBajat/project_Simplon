@@ -20,19 +20,21 @@ router.get('/all', async (req, res) => {
 // add proposition 
 
 router.post('/add', async (req, res) => {
-    const proposition = {
-        title: req.body.title,
-        description: req.body.description,
-        author: req.session.userId
-    }
+    const proposition = null;
     try {
-        await addProposition(req.body.title, req.body.description, req.body.timestamp, req.body.status )
+        await addProposition({
+            usr_id: req.body.usr_id,
+            title: req.body.pro_title, 
+            description: req.body.pro_description,
+            timestamp: req.body.pro_timestamp, 
+            status: req.body.pro_status
+        })
     } catch (error) {
         console.log(error)
         return res.status(500).send(new Error("Erreur", error))
     }
 
-    return res.status(200).send("it worked")
+    return res.status(200).send(proposition)
 
 })
 router.delete('/proposition/delete/:id', async (req, res) => {

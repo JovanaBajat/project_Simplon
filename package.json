@@ -4,7 +4,7 @@
     "description": "",
     "main": "src/app/app.module.js",
     "scripts": {
-        "build": "webpack --config ./webpack.config.js",
+        "build": "webpack --watch --config ./webpack.config.js",
         "dev-start": "webpack-dev-server",
         "start": "webpack-dev-server --content-base build/"
     },
