@@ -11,7 +11,7 @@ export default function routing ($stateProvider, $urlRouterProvider, $locationPr
           template: '<profile></profile>',
         })
         .state('login', {
-          url: '/login',
+          url: '/loginPage',
           template: '<login></login>',
         })
         .state('about', {

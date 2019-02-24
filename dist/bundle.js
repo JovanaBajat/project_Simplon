@@ -4828,7 +4828,7 @@ function routing($stateProvider, $urlRouterProvider, $locationProvider) {
     url: '/profile',
     template: '<profile></profile>'
   }).state('login', {
-    url: '/login',
+    url: '/loginPage',
     template: '<login></login>'
   }).state('about', {
     url: '/about',
@@ -4865,6 +4865,23 @@ var appService = function () {
         key: "changeMe",
         value: function changeMe() {
             this.serviceVar = "Changed my data";
+        }
+    }, {
+        key: "httpWrapper",
+        value: function httpWrapper($http, $state, wrappedRequest) {
+            $http({ method: 'GET', url: 'http://localhost:8888/authenticate' }).then(function () {
+                console.log('works');
+                wrappedRequest();
+            }).catch(function (err) {
+                console.log('caca');
+                $state.go('login', {
+                    url: '/loginPage',
+                    template: '<login></login>'
+                });
+                // alert - vous aves etes deconnecté
+            });
+            console.log('httpwrapp');
+            return;
         }
     }]);
 
@@ -4916,26 +4933,45 @@ Object.defineProperty(exports, "__esModule", {
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var home = {
-  bindings: {},
+  bindings: {
+    get: "="
+  },
   templateUrl: __webpack_require__(21),
   styleUrls: ['home.css'],
-  controller: function appCtrl($scope, $http, appService) {
+  controller: function appCtrl($scope, $http, $state, appService) {
     _classCallCheck(this, appCtrl);
 
     $scope.init = function () {
-      $scope.getProposition();
+      console.log('home ----', $scope);
+      appService.httpWrapper($http, $state, $scope.getProposition);
+    };
+    $scope.select = function (selected) {
+      $scope.selected = selected;
     };
 
-    $scope.getProposition = function () {
+    $scope.like = function () {};
 
+    $scope.dislike = function () {};
+
+    // get all list of propositions
+    $scope.getProposition = function () {
       $http({ method: 'GET', url: 'http://localhost:8888/pro/all' }).then(function (response) {
         $scope.response = response;
       }).catch(function (err) {});
     };
+    // delete one proposition
+    $scope.deleteProposition = function () {
+      appService.httpWrapper($http, $state, function () {
+        $http({ method: 'DELETE', url: 'http://localhost:8888/pro/delete/' + $scope.selected.pro_id }).then(function (response) {
+          $scope.response = response;
+          $scope.getProposition();
+        }).catch(function (err) {});
+      });
+    };
   },
   controllerAs: 'homeCtrl'
 };
-home.$inject = ['$scope', '$http', 'appService'];
+home.$inject = ['$scope', '$http', '$state', 'appService'];
 exports.default = home;
 
 /***/ }),
@@ -4992,11 +5028,13 @@ var navbar = {
     bindings: {},
     templateUrl: __webpack_require__(23),
     styleUrls: ['navbar.css'],
-    controller: function appCtrl($scope, $state) {
+    controller: function appCtrl($scope, $state, $http, $rootScope) {
         _classCallCheck(this, appCtrl);
 
         $scope.init = function () {
             console.log('navbar -', $scope);
+            $scope.isAdmin = $rootScope.session.usr_is_admin;
+            console.log('is admin ---', $scope.isAdmin);
 
             $(document).ready(function () {
                 $('.navbar .dropdown').hover(function () {
@@ -5012,11 +5050,36 @@ var navbar = {
                     template: '<profile></profile>'
                 });
             };
+            $scope.inviteUser = function () {
+                console.log('inviteUser');
+                var requestBody = {
+                    firstname: $scope.firstname,
+                    lastname: $scope.lastname,
+                    job: $scope.job,
+                    email: $scope.email
+                    //id: $rootScope.session.usr_id
+                };
+                $http({ method: 'POST', url: 'http://localhost:8888/usr/addUser', data: requestBody, withCredentials: false }).then(function (response) {
+                    console.log('response ---', response);
+                }).catch(function (err) {
+                    console.log('error');
+                });
+            };
+            $scope.logout = function () {
+                console.log('logout');
+                $http({ method: 'GET', url: 'http://localhost:8888/usr/logout' }).then(function (response) {
+                    $scope.response = response;
+                    $state.go('login', {
+                        url: '/login',
+                        template: '<login></login>'
+                    });
+                }).catch(function (err) {});
+            };
         };
     },
     controllerAs: 'navbarCtrl'
 };
-navbar.$inject = ['$scope', '$state', '$location'];
+navbar.$inject = ['$scope', '$state', '$http', '$rootScope'];
 exports.default = navbar;
 
 /***/ }),
@@ -5036,7 +5099,7 @@ var profile = {
   bindings: {},
   templateUrl: __webpack_require__(24),
   styleUrls: ['profile.css'],
-  controller: function appCtrl($scope, $rootScope, $http, $state) {
+  controller: function appCtrl($scope, $rootScope, $http) {
     _classCallCheck(this, appCtrl);
 
     $scope.init = function () {
@@ -5063,7 +5126,7 @@ var profile = {
   },
   controllerAs: 'profileCtrl'
 };
-profile.$inject = ['$scope', '$rootScope', '$http', '$state'];
+profile.$inject = ['$scope', '$rootScope', '$http'];
 exports.default = profile;
 
 /***/ }),
@@ -5080,10 +5143,12 @@ Object.defineProperty(exports, "__esModule", {
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var redact = {
-    bindings: {},
+    bindings: {
+        get: "="
+    },
     templateUrl: __webpack_require__(25),
     styleUrls: ['redact.css'],
-    controller: function appCtrl($scope, $state, $http) {
+    controller: function appCtrl($scope, $rootScope, $http) {
         _classCallCheck(this, appCtrl);
 
         $scope.init = function () {
@@ -5091,14 +5156,25 @@ var redact = {
         };
         $scope.submitProp = function () {
             console.log("HERE-", $scope);
-            $http({ method: 'POST', url: 'http://localhost:8888/pro/add', data: { title: $scope.title, description: $scope.description } }).then(function (response) {
+            var requestBody = {
+                title: $scope.title,
+                description: $scope.description
+            };
+            $http({ method: 'POST', url: 'http://localhost:8888/pro/add', data: requestBody }).then(function (response) {
                 console.log(response);
+                $scope.reset();
             }, function (response) {});
+            $scope.redactCtrl.get();
+            $scope.reset = function () {
+                console.log('reset');
+                $scope.title = null;
+                $scope.description = null;
+            };
         };
     },
     controllerAs: 'redactCtrl'
 };
-redact.$inject = ['$scope', '$state', '$http'];
+redact.$inject = ['$scope', '$rootScope', '$http'];
 exports.default = redact;
 
 /***/ }),

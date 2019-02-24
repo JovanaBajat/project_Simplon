@@ -6,17 +6,12 @@
                     <i class="icon fas fa-pen"></i>
                     <div class="title">New proposition</div> 
                 </div>
-        
-                <div class="header-action" ng-if="myForm.title.$dirty"
-                    ng-click="reset()">
-                    <i class="fas fa-times"></i>
-                </div>
             </div>
             <!-- Content -->
             <div class="content">
                 <!-- Title -->
                 <div class="input-area" ng-class="{'no-margin': !myForm.title.$dirty}">
-                    <div class="text" ng-if="myForm.title.$dirty">Your title</div>
+                    <div class="text">Your title</div>
                     <form class="my-form" name="myForm">
                         <input  type="text" name="title"
                                 ng-model="title"
@@ -33,11 +28,11 @@
                     </form>
                 </div>
                 <!-- Description -->
-                <div class="input-area" ng-if="myForm.title.$dirty">
+                <div class="input-area">
                     <div class="text">Description</div>
                     <div class="input-area" ng-class="{'no-margin': !myForm.title.$dirty}">
                         <form class="redact-content" name="myForm">
-                            <input  type="text" name="description"
+                            <textarea type="text" name="description"
                                     ng-model="description"
                                     required
                                     ng-model-options="{
@@ -48,7 +43,7 @@
                                         }
                                     }"
                                     ng-change="makeFormDirty(true)"
-                                    placeholder="ur description goes here"/>
+                                    placeholder="ur description goes here"></textarea>
                         </form>
                     </div>
                     <!-- Attachment box -->
@@ -78,7 +73,7 @@
             <!-- Footer -->
             <div class="footer">
                 <!-- Action buttons -->
-                <div class="actions" ng-if="myForm.title.$dirty">
+                <div class="actions">
                     <div class="action">
                         <div class="button grey" ng-click="reset()">Cancel</div>
                     </div>

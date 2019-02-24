@@ -1,5 +1,11 @@
 .home-wrapper {
-    margin-top: 60px;
+    margin-top: 40px;
+    padding:10px;
+    height: 100%;
+    // background-size: cover; 
+    // background-position: center; 
+    // background-repeat: no-repeat; 
+    // background-image: url("https://hdwallsource.com/img/2014/9/blur-26347-27038-hd-wallpapers.jpg"); 
     .proposition-wrapper {
         display: flex;
         align-items: center;
@@ -11,12 +17,90 @@
         border-radius: 5px;
         margin-right: 30px;
         text-align: center;
-        border: 2px solid $violet;
+        border: 2px solid rgba($violet, 0.1);
+        background-color: rgba($green, 0.1);
         }
-        > i {
-            font-size: 30px;
-            margin-right: 20px;
-            cursor: pointer;
+        .like, .dislike {
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+            > i {
+                font-size: 30px;
+                margin-right: 20px;
+                cursor: pointer;
+                &.fa-thumbs-up {
+                    color: $green;
+                }
+                &.fa-thumbs-down {
+                    color: $red;
+                }
+            }
+            .like-num {
+                color: $green;
+            }
+            .dislike-num {
+                color: $red;
+            }
+        }
+    }
+    .modal {
+        .prop-body {
+            min-height: 60vh;
+        }
+        .prop-header, .prop-footer {
+            border: none;
+        }
+        .prop-title, .prop-body {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            padding: 0px 70px;
+            text-align: center;
+        }
+        .separation {
+            margin: 0px 50px;
+            border: 0.5px solid rgba($violet, 0.1);
+        }
+        .votes {
+            display: flex;
+            justify-content: center;
+            .like, .dislike {
+                display: flex;
+                align-items: center;
+                margin-right: 10px;
+                > i {
+                    font-size: 30px;
+                    margin-right: 20px;
+                    cursor: pointer;
+                    &.fa-thumbs-up {
+                        color: $green;
+                    }
+                    &.fa-thumbs-down {
+                        color: $red;
+                    }
+                }
+                .like-num {
+                    color: $green;
+                }
+                .dislike-num {
+                    color: $red;
+                }
+            }
+        }
+        .confirmation-body {
+            max-height: 20vh;
+        }
+        .confirmation-header, .confirmation-footer {
+            border: none;
+        }
+        .confirmation-body {
+            display: flex;
+            justify-content: center;
+        }
+    }
+    button {
+        > a {
+            text-decoration: none;
         }
     }
 }

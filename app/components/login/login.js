@@ -5,9 +5,8 @@ let login = {
     controller: class appCtrl {
         constructor($scope, $rootScope, $http, $state) {
             $scope.init = function () {
-
             }
-
+            
             $scope.userConnection = function () { 
                 $http({ method: 'POST', url: 'http://localhost:8888/usr/login', data: {email: $scope.email, password: $scope.password}, withCredentials: true})    
                 .then(function (response) {

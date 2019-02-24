@@ -10,7 +10,6 @@ router.get('/all', async (req, res) => {
     try {
         queryResults = await getPropositions()
     } catch (error) {
-        console.log(error)
         return res.status(500).send(new Error("Erreur fetching propositions", error))
     }
 
@@ -23,11 +22,11 @@ router.post('/add', async (req, res) => {
     const proposition = null;
     try {
         await addProposition({
-            usr_id: req.body.usr_id,
-            title: req.body.pro_title, 
-            description: req.body.pro_description,
-            timestamp: req.body.pro_timestamp, 
-            status: req.body.pro_status
+            usr_id: req.session.userId,
+            title: req.body.title, 
+            description: req.body.description,
+            timestamp: req.body.timestamp, 
+            status: req.body.status
         })
     } catch (error) {
         console.log(error)
@@ -37,7 +36,7 @@ router.post('/add', async (req, res) => {
     return res.status(200).send(proposition)
 
 })
-router.delete('/proposition/delete/:id', async (req, res) => {
+router.delete('/delete/:id', async (req, res) => {
     try {
         await deleteProposition(req.params.id);
     } catch (error) {

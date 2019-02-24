@@ -3,6 +3,7 @@ const { getUserFromEmail, encryptPassword, insertNewUser, verifyUser, editUser, 
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
+const { generateToken } = require('./../authentication'); 
 
 router.post('/addUser', async (req, res) => {
 
@@ -47,7 +48,7 @@ router.post('/login', async (req, res) => {
     try {
         if (await verifyUser(credentials)) {
             const user = await getUserFromEmail(credentials.email);
-            const newToken = jwt.sign({ userId: user.usr_id }, 'caca');
+            const newToken = generateToken(user.usr_id);
 
             res.cookie('token', newToken);
             return res.status(200).json({  user });
@@ -60,6 +61,25 @@ router.post('/login', async (req, res) => {
         return res.status(500).send(error);
     }
 })
+
+// logout route
+
+router.get('/logout', function(req, res, next) {
+    try {
+        if (req.session) {
+            // delete session object
+            req.session.destroy(function(err) {
+                if(err) {
+                    return next(err);
+                } else {
+                return res.redirect('/');
+                }
+            });
+        }
+    } catch(error) {
+        return res.status(500).send(error);
+    }
+});
 
 //add profile photo user
 const storage = multer.memoryStorage();

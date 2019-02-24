@@ -1,11 +1,12 @@
 .redact-proposition {
-    width: 100%;
+    width: 90%;
     border-radius: 5px;
+    margin-left: 30px;
     background-color: $white;
     
     .container-div {
-        width: 90%;
-        margin: 30px;
+        width: 100%;
+        margin: 30px 0px;
         padding: 15px;
         border-radius: 5px;
         border: 1px solid rgba($violet, 0.1);
@@ -51,6 +52,28 @@
     .content {
         width: 100%;
         padding: 0px 0px 20px 0px;
+        textarea {
+            resize: none;
+            width: 100%;
+            height: 150px;
+            padding: 15px 15px;
+            border-radius: 5px;
+            background-color: #ffffff;
+            border: solid 1px #dfdedf;
+
+            &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+                color: rgba($violet, 0.3);
+            }
+            &::-moz-placeholder { /* Firefox 19+ */
+                color: rgba($violet, 0.3);
+            }
+            &:-ms-input-placeholder { /* IE 10+ */
+                color: rgba($violet, 0.3);
+            }
+            &:-moz-placeholder { /* Firefox 18- */
+                color: rgba($violet, 0.3);
+            }
+        }
         
         input {
             width: 100%;
@@ -93,7 +116,7 @@
             }
 
             .text {
-                padding-bottom: 10px;
+                padding: 10px;
                 color: rgba($violet, 0.5);
                 text-align: left;
             }

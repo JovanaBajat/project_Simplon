@@ -3,7 +3,7 @@ let profile = {
   templateUrl: require('./profile.html'),
   styleUrls: ['profile.css'],
   controller: class appCtrl {
-      constructor($scope, $rootScope, $http, $state) {
+      constructor($scope, $rootScope, $http) {
           $scope.init = function () {
           $scope.getUser();
 
@@ -35,5 +35,5 @@ let profile = {
   },
   controllerAs: 'profileCtrl'
 }
-profile.$inject = ['$scope', '$rootScope', '$http', '$state'];
+profile.$inject = ['$scope', '$rootScope', '$http'];
 export default profile;
