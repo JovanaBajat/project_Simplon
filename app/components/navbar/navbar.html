@@ -20,6 +20,7 @@
         <ul class="nav navbar-nav navbar-right">
             <li><a href="../#!/profile">Profil</a></li>
             <li ng-if='isAdmin'><a href="" data-toggle="modal" data-target="#invitationModal" data-whatever="@getbootstrap">Add a member</a></li>
+            <li ng-if='isAdmin' ng-click='getMembers()'><a href="" data-toggle="modal" data-target="#allMembersModal" data-whatever="@getbootstrap">See all members</a></li>
             <li><a href="#" ng-click="logout()">Log out</a></li>
         </ul>
         </div>
@@ -53,7 +54,28 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" ng-click="inviteUser()">Send invitation</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="inviteUser()">Send invitation</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="allMembersModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">Member list</h4>
+                </div>
+                <div class="modal-body members-body" ng-repeat='member in members'>
+                    <div class="member-img">
+                        <img src="https://d9nvuahg4xykp.cloudfront.net/5042552462081215262/7231559881403519645_thumbnail.jpg"/>
+                    </div>
+                   <div>{{member.usr_firstname}} {{member.usr_lastname}}</div>
+                   <div></div>
+                </div>
+                <div class="modal-footer members-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

@@ -16,4 +16,18 @@ a {
 .modal-backdrop.in {
     display: none;
 }
+.members-body {
+    display: flex;
+    align-items: center;
+    .member-img {
+        > img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+    }
+}
+.members-footer {
+    border-top: none;
+}
         

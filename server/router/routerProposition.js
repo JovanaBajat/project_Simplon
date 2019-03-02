@@ -1,19 +1,19 @@
 const express = require('express');
-const { getPropositions, addProposition, deleteProposition } = require('../controller/ctrlProposition');
+const { getPropositions, addProposition, deleteProposition, editProp } = require('../controller/ctrlProposition');
 const router = express.Router();
 
 //get all propositions 
 
 router.get('/all', async (req, res) => {
 
-    let queryResults = null
+    let propositions = null
     try {
-        queryResults = await getPropositions()
+        propositions = await getPropositions(req.session.userId)
     } catch (error) {
-        return res.status(500).send(new Error("Erreur fetching propositions", error))
+        return res.status(500).send(error.message)
     }
 
-    return res.status(200).send(queryResults.rows)
+    return res.status(200).send(propositions)
 })
 
 // add proposition 
@@ -34,6 +34,24 @@ router.post('/add', async (req, res) => {
     }
 
     return res.status(200).send(proposition)
+
+})
+
+// edit proposition
+
+router.post('/edit', async (req, res) => {
+    let propInfos = null; 
+    try {
+        propInfos = await editProp(req.body.id, {
+            title: req.body.title,
+            description: req.body.description,
+            // id: req.body.pro_id,
+            usr_id: req.body.usr_id
+        });
+    } catch (error) {
+        return res.status(500).send(error);
+    }
+    return res.status(200).send(propInfos.rows[0]);
 
 })
 router.delete('/delete/:id', async (req, res) => {

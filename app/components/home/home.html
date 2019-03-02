@@ -4,12 +4,12 @@
     <div class="proposition-wrapper" ng-repeat="prop in response.data">
         <div class="proposition"  data-toggle="modal" data-target="#example" ng-click="select(prop)" data-whatever="@getbootstrap" >{{ prop.pro_title}}</div>
         <div class="like">
-            <i class="far fa-thumbs-up" ng-click="like()"></i>
-            <div class="like-num">4</div>
+            <i class="far fa-thumbs-up"></i>
+            <div class="like-num">{{prop.likes}}</div>
         </div>
         <div class="dislike">
-            <i class="far fa-thumbs-down" ng-click="dislike()"></i>
-            <div class='dislike-num'>1</div>
+            <i class="far fa-thumbs-down"></i>
+            <div class='dislike-num'>{{prop.dislikes}}</div>
         </div>
     </div>
 
@@ -22,43 +22,80 @@
                 </div>
                 <div class="separation"></div>
                 <div class="modal-body prop-body">
-                    {{selected.pro_description}}
+                    <div class="content">{{selected.pro_description}}</div>
+                    <div class="author">
+                        <span>by</span>
+                        <span>{{selected.usr_firstname }} {{selected.usr_lastname }}</span>
+                    </div>
+                    <div class="date">{{ date }}</div>
                 </div>
                 <div class="votes">
                     <div class="like">
-                        <i class="far fa-thumbs-up" ng-click="like()"></i>
-                        <!-- <div class="like-num">4</div> -->
+                        <i class="far fa-thumbs-up" ng-click="like(true)"></i>
                     </div>
                     <div class="dislike">
-                        <i class="far fa-thumbs-down" ng-click="dislike()"></i>
-                        <!-- <div class='dislike-num'>1</div> -->
+                        <i class="far fa-thumbs-down" ng-click="like(false)"></i>
                     </div>
                 </div>
                 <div class="modal-footer prop-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-warning">
+                    <button type="button" class="btn btn-warning" ng-if="selected.usr_id == isSelf">
+                        <a href="#editModal" data-toggle="modal" data-dismiss="modal">Edit</a></button>
+
+                    <button type="button" class="btn btn-warning" ng-if="selected.usr_id == isSelf">
                         <a href="#exampleModal" data-toggle="modal" data-dismiss="modal">Delete</a></button>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    
+    <!-- Modal edit -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
         <div class="modal-dialog" role="document">
-        <div class="modal-content confirmation-content">
-            <div class="modal-header confirmation-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body confirmation-body">
-            Are you sure you want to delete this proposition?
-            </div>
-            <div class="modal-footer confirmation-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-warning" data-dismiss="modal" ng-click="deleteProposition()">Delete</button>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">Edit proposition</h4>
+                </div>
+                <div class="modal-body edit-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">Title</label>
+                            <input type="text" class="form-control" id="recipient-name" ng-model='selected.pro_title'>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">Description</label>
+                            <form class="redact-content" name="myForm">
+                                <textarea type="text" name="description" ng-model='selected.pro_description'>{{ selected.pro_description }}</textarea>
+                            </form>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="editProp()">Save changes</button>
+                </div>
             </div>
         </div>
+    </div>
+
+    <!-- Modal delete-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content confirmation-content">
+                <div class="modal-header confirmation-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body confirmation-body">
+                    <span>Are you sure you want to delete this proposition?</span>
+                </div>
+                <div class="modal-footer confirmation-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-warning" data-dismiss="modal" ng-click="deleteProposition()">Delete</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

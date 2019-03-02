@@ -18,7 +18,7 @@ const generateToken = userId => {
 const validateToken = async (req, res, next) => {
     // User crée un compte ou se connecte sans token
     if (
-        req.path === "/usr/login" || res.path === "/authenticate"
+        req.path === "/usr/login" || req.path === "/authenticate"
     ) {
         next();
     } else if (!req.cookies.token) {

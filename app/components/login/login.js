@@ -5,6 +5,10 @@ let login = {
     controller: class appCtrl {
         constructor($scope, $rootScope, $http, $state) {
             $scope.init = function () {
+                $scope.alert = $rootScope.warningAlert;
+                $(".alert-warning").fadeTo(2000, 500).slideUp(500, function(){
+                    $(".alert-warning").slideUp(500);
+                });
             }
             
             $scope.userConnection = function () { 

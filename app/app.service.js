@@ -8,7 +8,7 @@ export default class appService {
       this.serviceVar = "Changed my data";
   }
 
-  httpWrapper($http, $state, wrappedRequest) {
+  httpWrapper($http, $state, $rootScope, wrappedRequest) {
     $http({ method: 'GET', url: 'http://localhost:8888/authenticate'})    
     .then(function () {
         console.log('works');
@@ -20,6 +20,8 @@ export default class appService {
                 url: '/loginPage',
                 template: '<login></login>'
             })
+            $rootScope.warningAlert = true;
+       
             // alert - vous aves etes deconnecté
         }); 
     console.log('httpwrapp')

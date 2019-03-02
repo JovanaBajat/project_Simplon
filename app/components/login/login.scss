@@ -6,6 +6,12 @@
     background-position: center; 
     background-repeat: no-repeat; 
     background-image: url("https://hdwallsource.com/img/2014/9/blur-26347-27038-hd-wallpapers.jpg"); 
+    .alert {
+        width: 40%;
+        display: flex;
+        margin: auto;
+        justify-content: center;
+    }
 }
 .login-form .form-control {
     background: $grey none repeat scroll 0 0;
@@ -21,6 +27,10 @@
     margin: 10px auto 30px;
     background-color: $white;
     padding: 50px 70px 70px 70px;
+
+    @media screen and (max-width: 700px) {
+        max-width: 100%
+    }
 }
 
 .login-form .form-group {

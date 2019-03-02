@@ -22,11 +22,11 @@ let redact = {
                     }, function (response) {
                     });
                     $scope.redactCtrl.get();
-                    $scope.reset = function () {
-                    console.log('reset');
-                    $scope.title = null;
-                    $scope.description = null;
                 }
+                $scope.reset = function () {
+                console.log('reset');
+                $scope.title = null;
+                $scope.description = null;
             };
         }
     },

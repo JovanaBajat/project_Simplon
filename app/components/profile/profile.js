@@ -18,12 +18,12 @@ let profile = {
           $scope.submitForm = function () {
             console.log('test');
             const requestBody = {
-              firstname: $scope.firstname,
-              lastname: $scope.lastname,
-              job: $scope.job,
-              email: $scope.email,
-             // photo: $scope.photo,
-              infos: $scope.infos,
+              firstname: $scope.response.data.usr_firstname,
+              lastname: $scope.response.data.usr_lastname,
+              job: $scope.response.data.usr_job,
+              email: $scope.response.data.usr_email,
+             // photo: $scope.response.data.usr_photo,
+              infos: $scope.response.data.usr_infos,
               id: $rootScope.session.usr_id
             }
             $http({ method: 'POST', url: 'http://localhost:8888/usr/edit', data: requestBody, withCredentials: false})    

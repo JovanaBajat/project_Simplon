@@ -1,27 +1,48 @@
 const express = require('express');
-const { getUserFromEmail, encryptPassword, insertNewUser, verifyUser, editUser, getUsers, getUserById  } = require('../controller/ctrlUser');
+const { getUserFromEmail, encryptPassword, insertNewUser, verifyUser, editUser, getUsers, getUserById, generatePassword  } = require('../controller/ctrlUser');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const { generateToken } = require('./../authentication'); 
+const transporter = require('../email');
 
 router.post('/addUser', async (req, res) => {
 
     const newUser = {
         ...req.body
     }
+    const randomGeneratedPassword = generatePassword();
     try {
+
         const accountAlreadyExists = await getUserFromEmail(newUser.email)
         if (accountAlreadyExists) {
             return res.status(403).send('user email already exists');
         }
-        const encryptedPassword = encryptPassword(newUser.password);
+        const encryptedPassword = encryptPassword(randomGeneratedPassword);
         newUser.encryptedPassword = encryptedPassword;
         await insertNewUser(newUser);
     } catch(error) {
         return res.status(500).json(error.message);
     }
-    return res.status(200).send(newUser);
+
+
+    const mailOptions = {
+        from: 'cae_prisme_elias@yahoo.com', // sender address
+        to: newUser.email, // list of receivers
+        subject: 'Votre compte est .......', // Subject line
+        html: `<p>your password is ${randomGeneratedPassword}</p>`
+    };
+
+    transporter.sendMail(mailOptions, function (err, info) {
+        if(err) {            
+            console.log(err)
+            return res.status(500).json(error.message);
+        }
+        else {
+            console.log(info);
+            return res.status(200).send(newUser);
+        }
+    });
 })
 
 //get all users 
@@ -68,13 +89,12 @@ router.get('/logout', function(req, res, next) {
     try {
         if (req.session) {
             // delete session object
-            req.session.destroy(function(err) {
-                if(err) {
-                    return next(err);
-                } else {
+            req.session = null;
+            // req.session.destroy(function(err) {
+              
                 return res.redirect('/');
-                }
-            });
+                
+            // });
         }
     } catch(error) {
         return res.status(500).send(error);

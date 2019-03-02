@@ -2,16 +2,54 @@ const SQL = require('sql-template-strings');
 const client = require('../db');
 const moment = require('moment');
 
-const getPropositions = async function () {
+const getPropositions = async function (userId) {
     const query = SQL`
+    WITH pro_likes AS (
+        SELECT
+            vot.*
+        FROM
+            proposition_pro as pro
+            INNER JOIN vote_vot vot ON vot.pro_id = pro.pro_id
+    )
     SELECT 
-        *
+        pro.*,
+        usr.*,
+        JSON_AGG(pl.*) AS votes
     FROM
-        proposition_pro
+        proposition_pro as pro
+        INNER JOIN user_usr as usr ON pro.usr_id = usr.usr_id
+        LEFT OUTER JOIN pro_likes pl ON pl.pro_id = pro.pro_id
+    GROUP BY 
+        pro.pro_id,
+        usr.usr_id
     `
     const queryResults = await client.query(query)
 
-    return queryResults
+    const formattedPropositions = queryResults.rows.map(proposition => {
+        const didUserVotedForThisProposition = proposition.votes.findIndex(vote =>{ 
+            if (vote === null) {
+                return false
+            }
+            return vote.usr_id === userId
+        }) !== -1
+
+        if (!didUserVotedForThisProposition) {
+            return {...proposition, votes: []}
+        }
+        
+        let likes = 0
+        let dislikes = 0
+        proposition.votes.forEach(vote => {
+            if (vote === null) {
+                return
+            }
+            // Si vot_value === true alors c'est un like sinon dislike
+            vote.vot_value === true ? likes++ : dislikes++
+        })
+        return { ...proposition, likes, dislikes }
+    })
+    
+    return formattedPropositions
 }
  
 
@@ -38,6 +76,25 @@ const addProposition = async function (proposition) {
     await client.query(insertQuery)
 
 }
+
+const editProp = async function (id, propInfos) {
+    console.log('id ----', id);
+    console.log('propInfos ----', propInfos);
+    const query = SQL`
+    UPDATE 
+        proposition_pro
+    SET
+        pro_title = ${propInfos.title},
+        pro_description = ${propInfos.description}
+    WHERE 
+        pro_id = ${id}
+        RETURNING *
+    `
+    const queryResults = await client.query(query)
+        
+    return queryResults
+
+}
 const deleteProposition = async function (id) {
     const deleteQuery = SQL`
         DELETE FROM proposition_pro WHERE pro_id = ${id}
@@ -47,4 +104,4 @@ const deleteProposition = async function (id) {
 }
 
 
-module.exports = { getPropositions, addProposition, deleteProposition }
+module.exports = { getPropositions, addProposition, deleteProposition, editProp }

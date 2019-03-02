@@ -23,6 +23,18 @@ const encryptPassword = function (password) {
     const hash = bcrypt.hashSync(password, salt);
     return hash;
 }
+
+const generatePassword = () => {
+    var length = 8,
+        charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+        retVal = "";
+    for (var i = 0, n = charset.length; i < length; ++i) {
+        retVal += charset.charAt(Math.floor(Math.random() * n));
+    }
+    console.log('retVal ----', retVal);
+    return retVal;
+}
+
 const insertNewUser = async function (newUser) {
 
     const query = SQL`
@@ -121,4 +133,4 @@ const getUserById = async function (id) {
     return queryResults.rows[0]
 }
 
-module.exports = { getUserFromEmail, encryptPassword, insertNewUser, verifyUser, editUser, getUsers, getUserById }
+module.exports = { getUserFromEmail, encryptPassword, insertNewUser, verifyUser, editUser, getUsers, getUserById, generatePassword }

@@ -23,14 +23,18 @@ let navbar = {
                         template: '<profile></profile>'
                     })
                 }
+             
                 $scope.inviteUser = function () {
+
                     console.log('inviteUser');
                     const requestBody = {
                       firstname: $scope.firstname,
                       lastname: $scope.lastname,
-                      job: $scope.job,
                       email: $scope.email,
-                      //id: $rootScope.session.usr_id
+                      job: $scope.job,
+                      isAdmin: false,
+                      photo: 'https://cdn0.iconfinder.com/data/icons/flat-design-business-set-3/24/people-customer-unknown-512.png'
+
                     }
                     $http({ method: 'POST', url: 'http://localhost:8888/usr/addUser', data: requestBody, withCredentials: false})    
                     .then(function (response) {
@@ -40,6 +44,15 @@ let navbar = {
                             console.log('error');
                         });
                   }
+                $scope.getMembers = function () {
+                    console.log('see members');
+                    $http({ method: 'GET', url: 'http://localhost:8888/usr/all'})    
+                    .then(function (response) {
+                        $scope.members = response.data;
+                        console.log($scope.members);
+                    })
+                    .catch(function (err) {});
+                }
                 $scope.logout = function () {
                     console.log('logout');
                     $http({ method: 'GET', url: 'http://localhost:8888/usr/logout'})    
