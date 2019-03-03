@@ -54,6 +54,8 @@ router.post('/edit', async (req, res) => {
     return res.status(200).send(propInfos.rows[0]);
 
 })
+// delete proposition 
+
 router.delete('/delete/:id', async (req, res) => {
     try {
         await deleteProposition(req.params.id);
@@ -63,6 +65,6 @@ router.delete('/delete/:id', async (req, res) => {
     }
 
     return res.status(200).send("it worked, proposition deleted")
-
 })
+
 module.exports = router;

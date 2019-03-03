@@ -70,7 +70,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="exampleModalLabel">New message</h4>
+                    <h4 class="modal-title" id="exampleModalLabel">Edit your profile</h4>
                 </div>
                 <div class="modal-body">
                     <form>
@@ -87,14 +87,13 @@
                             <input type="text" class="form-control" id="recipient-name" ng-model="response.data.usr_job">
                         </div>
                         <div class="form-group">
-                            <label for="recipient-name" class="control-label">Email:</label>
-                            <input type="text" class="form-control" id="recipient-name" ng-model="response.data.usr_email">
-                        </div>
-                        <div class="form-group">
                             <label for="message-text" class="control-label">Message:</label>
                             <textarea class="form-control" id="message-text" ng-model="response.data.usr_infos"></textarea>
                         </div>
-                        <input type="file" placeholder="add image" ng-model="photo">
+                        <input
+                            style="display: none"
+                            type="file" ng-click="" ng-model="response.data.usr_photo">
+                        <button ng-click="">Change your profile picture</button>
                     </form>
                 </div>
                 <div class="modal-footer">

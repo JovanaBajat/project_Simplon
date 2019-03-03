@@ -1,5 +1,5 @@
 const express = require('express');
-const { getUserFromEmail, encryptPassword, insertNewUser, verifyUser, editUser, getUsers, getUserById, generatePassword  } = require('../controller/ctrlUser');
+const { getUserFromEmail, encryptPassword, insertNewUser, verifyUser, editUser, getUsers, getUserById, generatePassword, deleteUser } = require('../controller/ctrlUser');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
@@ -90,11 +90,7 @@ router.get('/logout', function(req, res, next) {
         if (req.session) {
             // delete session object
             req.session = null;
-            // req.session.destroy(function(err) {
-              
-                return res.redirect('/');
-                
-            // });
+            return res.redirect('/');     
         }
     } catch(error) {
         return res.status(500).send(error);
@@ -107,17 +103,16 @@ const upload = multer({ storage: storage });
 
 router.post('/edit', upload.single('uploadImg'), async (req, res) => {
     let userInfos = null; 
-   // const writePath = path.join(__dirname, '../uploadedFiles', req.file.originalname)
+    // const writePath = path.join(__dirname, '../uploadedFiles', req.file.originalname)
 
     try {
-       // await fs.promises.writeFile(writePath, req.file.buffer)
-
+        // await fs.promises.writeFile(writePath, req.file.buffer)
         userInfos = await editUser(req.body.id, {
             firstname: req.body.firstname,
             lastname: req.body.lastname,
             job: req.body.job,
             email: req.body.email,
-           // photo: req.file.originalname,
+            // photo: req.file.originalname,
             infos: req.body.infos
         });
     } catch (error) {
@@ -139,6 +134,19 @@ router.get('/user', async (req, res) => {
         return res.status(500).send(error);
     }
     return res.status(200).send(infos);
+})
+
+// delete user 
+
+router.delete('/delete/:id', async (req, res) => {
+    try {
+        await deleteUser(req.params.id);
+    } catch (error) {
+        console.log(error)
+        return res.status(500).send(new Error("Erreur", error))
+    }
+
+    return res.status(200).send("it worked, proposition deleted")
 })
 
 module.exports = router;

@@ -45,7 +45,8 @@ const insertNewUser = async function (newUser) {
         usr_job,
         usr_password,
         usr_is_admin,
-        usr_photo
+        usr_photo,
+        usr_infos
     ) VALUES (
         ${newUser.firstname},
         ${newUser.lastname},
@@ -53,7 +54,8 @@ const insertNewUser = async function (newUser) {
         ${newUser.job},
         ${newUser.encryptedPassword},
         ${newUser.isAdmin},
-        ${newUser.photo}
+        ${newUser.photo},
+        ${newUser.infos}
         )
         `
         const queryResults = await client.query(query)
@@ -133,4 +135,12 @@ const getUserById = async function (id) {
     return queryResults.rows[0]
 }
 
-module.exports = { getUserFromEmail, encryptPassword, insertNewUser, verifyUser, editUser, getUsers, getUserById, generatePassword }
+const deleteUser= async function (id) {
+    const deleteQuery = SQL`
+        DELETE FROM user_usr WHERE usr_id = ${id}
+    `
+    await client.query(deleteQuery)
+
+}
+
+module.exports = { getUserFromEmail, encryptPassword, insertNewUser, verifyUser, editUser, getUsers, getUserById, generatePassword, deleteUser }

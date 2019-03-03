@@ -3,6 +3,7 @@ a {
     border: none !important;
     display: flex;
     align-items: center;
+
     .logo{
         width: 40px;
         height: 40px;
@@ -17,17 +18,42 @@ a {
     display: none;
 }
 .members-body {
-    display: flex;
-    align-items: center;
-    .member-img {
-        > img {
-            width: 30px;
-            height: 30px;
-            margin-right: 10px;
+    .member {
+        display: flex;
+        align-items: center;
+        .member-img {
+            > img {
+                width: 30px;
+                height: 30px;
+                margin-right: 10px;
+            }
+        }
+        .member-job {
+            margin-left: 5px;
+            font-style: italic;
         }
     }
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba($violet, 0.1);
+    button {
+        > a {
+            text-decoration: none;
+        }
+    }
+    
 }
 .members-footer {
     border-top: none;
+}
+.confirmation-body {
+    max-height: 20vh;
+}
+.confirmation-header, .confirmation-footer {
+    border: none;
+}
+.confirmation-body {
+    display: flex;
+    justify-content: center;
 }
         

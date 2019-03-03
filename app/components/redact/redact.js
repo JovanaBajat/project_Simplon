@@ -5,26 +5,32 @@ let redact = {
     templateUrl: require('./redact.html'),
     styleUrls: ['redact.css'],
     controller: class appCtrl {
-        constructor($scope, $rootScope, $http) {
+        constructor($scope, $rootScope, $http, $state, appService) {
+
             $scope.init = function () {
                 console.log('redact -', $scope);
             }
-            $scope.submitProp = function () {
-                console.log("HERE-",$scope);
+
+            // post one proposition 
+
+            $scope.submitProp = () => {
                 const requestBody = {
                     title: $scope.title,
                     description: $scope.description,
                 }
-                $http({ method: 'POST', url: 'http://localhost:8888/pro/add', data: requestBody })
-                    .then(function (response) {
-                        console.log(response);
-                        $scope.reset();
-                    }, function (response) {
+                appService.httpWrapper($http, $state, $rootScope, function () {
+                    $http({ method: 'POST', url: 'http://localhost:8888/pro/add', data: requestBody })
+                        .then(function (response) {
+                            $scope.reset();
+                            $scope.redactCtrl.get();
+                        }) 
+                        .catch(function (err) {});
                     });
-                    $scope.redactCtrl.get();
                 }
-                $scope.reset = function () {
-                console.log('reset');
+
+            // reset input and textarea fields
+            
+            $scope.reset = () => {
                 $scope.title = null;
                 $scope.description = null;
             };
@@ -32,5 +38,5 @@ let redact = {
     },
     controllerAs: 'redactCtrl'
 }
-redact.$inject = ['$scope', '$rootScope', '$http'];
+redact.$inject = ['$scope', '$rootScope', '$http', '$state', 'appService'];
 export default redact;

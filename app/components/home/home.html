@@ -1,6 +1,6 @@
 <navbar></navbar>
 <div class="home-wrapper" ng-init='init()'>
-    <redact get="getProposition"></redact>
+    <redact get="getPropositions"></redact>
     <div class="proposition-wrapper" ng-repeat="prop in response.data">
         <div class="proposition"  data-toggle="modal" data-target="#example" ng-click="select(prop)" data-whatever="@getbootstrap" >{{ prop.pro_title}}</div>
         <div class="like">
@@ -79,7 +79,7 @@
         </div>
     </div>
 
-    <!-- Modal delete-->
+    <!-- Modal delete proposition -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content confirmation-content">

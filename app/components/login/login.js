@@ -4,14 +4,17 @@ let login = {
     styleUrls: ['login.css'],
     controller: class appCtrl {
         constructor($scope, $rootScope, $http, $state) {
-            $scope.init = function () {
+
+            $scope.init = () => {
                 $scope.alert = $rootScope.warningAlert;
                 $(".alert-warning").fadeTo(2000, 500).slideUp(500, function(){
                     $(".alert-warning").slideUp(500);
                 });
             }
             
-            $scope.userConnection = function () { 
+            // user connection 
+            
+            $scope.userConnection = () => { 
                 $http({ method: 'POST', url: 'http://localhost:8888/usr/login', data: {email: $scope.email, password: $scope.password}, withCredentials: true})    
                 .then(function (response) {
                     $state.go('home', {
@@ -20,7 +23,7 @@ let login = {
                     })
                     $rootScope.session = response.data.user;
                     })
-                    .catch(function (err) {});
+                .catch(function (err) {});
             };
         }
     },

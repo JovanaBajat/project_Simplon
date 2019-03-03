@@ -26,14 +26,14 @@ const getPropositions = async function (userId) {
     const queryResults = await client.query(query)
 
     const formattedPropositions = queryResults.rows.map(proposition => {
-        const didUserVotedForThisProposition = proposition.votes.findIndex(vote =>{ 
+        const didUserVoteForThisProposition = proposition.votes.findIndex(vote =>{ 
             if (vote === null) {
                 return false
             }
             return vote.usr_id === userId
         }) !== -1
 
-        if (!didUserVotedForThisProposition) {
+        if (!didUserVoteForThisProposition) {
             return {...proposition, votes: []}
         }
         
@@ -78,8 +78,6 @@ const addProposition = async function (proposition) {
 }
 
 const editProp = async function (id, propInfos) {
-    console.log('id ----', id);
-    console.log('propInfos ----', propInfos);
     const query = SQL`
     UPDATE 
         proposition_pro
