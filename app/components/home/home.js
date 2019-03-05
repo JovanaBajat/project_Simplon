@@ -5,12 +5,13 @@ let home = {
   templateUrl: require('./home.html'),
   styleUrls: ['home.css'],
   controller: class appCtrl {
-    constructor($scope, $http, $state, appService, $rootScope) {
+    constructor($scope, $http, $state, appService, $rootScope, $window) {
 
       $scope.init = () => {
         console.log('home ----', $scope);
+        appService.getUser($rootScope, $window);
         // get a connected user ID
-        $scope.isSelf = $rootScope.session.usr_id;
+        $scope.isSelf = $rootScope.currentUser.usr_id;
         // authentication wrapper
         appService.httpWrapper($http, $state, $rootScope, $scope.getPropositions);
       }
@@ -45,6 +46,7 @@ let home = {
         $http({ method: 'GET', url: 'http://localhost:8888/pro/all'})    
         .then(function (response) {
           $scope.response = response;
+          $localStorage = response;
         })
         .catch(function (err) {});
       }
@@ -82,5 +84,5 @@ let home = {
   },
   controllerAs: 'homeCtrl'
 }
-home.$inject = ['$scope', '$http', '$state', 'appService', '$rootScope'];
+home.$inject = ['$scope', '$http', '$state', 'appService', '$rootScope', '$window'];
 export default home;

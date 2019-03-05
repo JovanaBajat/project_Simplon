@@ -3,11 +3,11 @@ let navbar = {
     templateUrl: require('./navbar.html'),
     styleUrls: ['navbar.css'],
     controller: class appCtrl {
-        constructor($scope, $state, $http, $rootScope, appService) {
+        constructor($scope, $state, $http, $rootScope, appService, $window) {
 
             $scope.init = () => {
                 console.log('navbar -', $scope);
-                $scope.isAdmin = $rootScope.session.usr_is_admin;
+                $scope.isAdmin = $rootScope.currentUser.usr_is_admin;
                 $scope.clicked = false;
 
                 $(document).ready(function () {
@@ -89,11 +89,12 @@ let navbar = {
                 console.log('logout');
                 $http({ method: 'GET', url: 'http://localhost:8888/usr/logout'})    
                 .then(function (response) {
-                    $scope.response = response;
                     $state.go('login', {
                         url: '/login',
                         template: '<login></login>'
                     })
+                    $window.localStorage.removeItem('user');
+                    $rootScope.currentUser = null;
                 })
                 .catch(function (err) {});
             }
@@ -103,5 +104,5 @@ let navbar = {
     controllerAs: 'navbarCtrl'
 }
 
-navbar.$inject = ['$scope', '$state', '$http', '$rootScope', 'appService'];
+navbar.$inject = ['$scope', '$state', '$http', '$rootScope', 'appService', '$window'];
 export default navbar;

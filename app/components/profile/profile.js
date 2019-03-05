@@ -12,7 +12,7 @@ let profile = {
           // get mermber's profile
 
           $scope.getUser = () => {
-            $http({ method: 'GET', url: 'http://localhost:8888/usr/user', params: {id: $rootScope.session.usr_id}})    
+            $http({ method: 'GET', url: 'http://localhost:8888/usr/user', params: {id: $rootScope.currentUser.usr_id}})    
             .then(function (response) {
               $scope.response = response;
               })
@@ -29,7 +29,7 @@ let profile = {
               email: $scope.response.data.usr_email,
               // photo: $scope.response.data.usr_photo,
               infos: $scope.response.data.usr_infos,
-              id: $rootScope.session.usr_id
+              id: $rootScope.currentUser.usr_id
             }
             appService.httpWrapper($http, $state, $rootScope, function () {
               $http({ method: 'POST', url: 'http://localhost:8888/usr/edit', data: requestBody, withCredentials: false})    

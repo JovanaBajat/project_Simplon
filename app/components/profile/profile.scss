@@ -44,6 +44,20 @@
                 border-top: none
             }   
         }
+        .row {
+            .edit-btn {
+                width: 100%;
+                margin-top: 30px;
+            }
+            .member-infos {
+                margin-bottom: 100px;
+            }
+            @media screen and (max-width: 700px) {
+                .member-infos {
+                    margin-bottom: 30px;
+                }
+            }
+        }
     }
     .modal {
         textarea {

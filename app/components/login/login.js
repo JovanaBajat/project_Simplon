@@ -3,7 +3,7 @@ let login = {
     templateUrl: require('./login.html'),
     styleUrls: ['login.css'],
     controller: class appCtrl {
-        constructor($scope, $rootScope, $http, $state) {
+        constructor($scope, $rootScope, $http, $state, $window) {
 
             $scope.init = () => {
                 $scope.alert = $rootScope.warningAlert;
@@ -22,6 +22,9 @@ let login = {
                         template: '<home></home>'
                     })
                     $rootScope.session = response.data.user;
+                    let user = $rootScope.session
+                    $window.localStorage.setItem('user', JSON.stringify(user));
+                    $rootScope.currentUser = user;
                     })
                 .catch(function (err) {});
             };
@@ -29,5 +32,5 @@ let login = {
     },
     controllerAs: 'loginCtrl'
 }
-login.$inject = ['$scope', '$rootScope', '$http', '$state'];
+login.$inject = ['$scope', '$rootScope', '$http', '$state', '$window'];
 export default login;

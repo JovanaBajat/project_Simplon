@@ -33,8 +33,8 @@ router.post('/addUser', async (req, res) => {
         html: `<p>your password is ${randomGeneratedPassword}</p>`
     };
 
-    transporter.sendMail(mailOptions, function (err, info) {
-        if(err) {            
+    transporter.sendMail(mailOptions, function (error, info) {
+        if(error) {            
             console.log(err)
             return res.status(500).json(error.message);
         }

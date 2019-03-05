@@ -25,4 +25,20 @@ export default class appService {
         console.log('httpwrapp')
         return ;
     }
+
+    getUser($rootScope, $window) {
+        if ($rootScope.currentUser) {
+            return $rootScope.currentUser;
+        }
+        var storageUser = $window.localStorage.getItem('user');
+        if (storageUser) {
+            try {
+                $rootScope.currentUser = JSON.parse(storageUser);
+            } catch (e) {
+                $window.localStorage.removeItem('user');
+            }
+        }
+        console.log('$rootScope.currentUser -----',  $rootScope.currentUser);
+        return $rootScope.currentUser;
+    }
 }

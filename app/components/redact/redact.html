@@ -11,20 +11,12 @@
             <div class="content">
                 <!-- Title -->
                 <div class="input-area" ng-class="{'no-margin': !myForm.title.$dirty}">
-                    <div class="text">Your title</div>
+                    <div class="text">Title</div>
                     <form class="my-form" name="myForm">
                         <input  type="text" name="title"
                                 ng-model="title"
                                 required
-                                ng-model-options="{
-                                    'updateOn': 'default blur',
-                                    'debounce': {
-                                    'default': 250,
-                                    'blur': 0
-                                    }
-                                }"
-                                ng-change="makeFormDirty(true)"
-                                placeholder="ur title goes here"/>
+                                placeholder="Title"/>
                     </form>
                 </div>
                 <!-- Description -->
@@ -35,15 +27,7 @@
                             <textarea type="text" name="description"
                                     ng-model="description"
                                     required
-                                    ng-model-options="{
-                                        'updateOn': 'default blur',
-                                        'debounce': {
-                                        'default': 250,
-                                        'blur': 0
-                                        }
-                                    }"
-                                    ng-change="makeFormDirty(true)"
-                                    placeholder="ur description goes here"></textarea>
+                                    placeholder="Description"></textarea>
                         </form>
                     </div>
                     <!-- Attachment box -->
@@ -80,9 +64,9 @@
                     <div class="action">
                         <div class="button blue" 
                             ng-class="{
-                                'is-disabled': myForm.description == ''
+                                'is-disabled': myForm.title == '' && myForm.description == ''
                             }"
-                            ng-click="submitProp()">Send</div>
+                            ng-click="submitProp()">Publish</div>
                     </div>
                 </div>
             </div>
