@@ -13,19 +13,22 @@
         </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-            <li><a href="../#!/home">Home</a></li>
-            <li><a href="../#!/about">About</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="../#!/profile">Profil</a></li>
-            <li ng-if='isAdmin'><a href="" data-toggle="modal" data-target="#invitationModal" data-whatever="@getbootstrap">Add a member</a></li>
-            <li ng-click='getMembers()'><a href="" data-toggle="modal" data-target="#allMembersModal" data-whatever="@getbootstrap">See members list</a></li>
-            <li><a href="#" ng-click="logout()">Log out</a></li>
-        </ul>
+            <ul class="nav navbar-nav">
+                <li><a href="../#!/home">Home</a></li>
+                <li><a href="../#!/about">About</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="../#!/profile">Profil</a></li>
+                <li ng-if='isAdmin'><a href="" data-toggle="modal" data-target="#invitationModal">Add a member</a></li>
+                <li ng-click='getMembers()'><a href="" data-toggle="modal" data-target="#allMembersModal">See members list</a></li>
+                <li><a href="#" ng-click="logout()">Log out</a></li>
+            </ul>
         </div>
     </div>
-    <div class="modal fade" id="invitationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+
+    <!-- Modal invite members -->
+
+    <div class="modal fade" id="invitationModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -35,19 +38,19 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label for="recipient-name" class="control-label">First name:</label>
+                            <label class="control-label">First name:</label>
                             <input type="text" class="form-control" id="recipient-name" ng-model="firstname">
                         </div>
                         <div class="form-group">
-                            <label for="recipient-name" class="control-label">Lastname:</label>
+                            <label class="control-label">Lastname:</label>
                             <input type="text" class="form-control" id="recipient-name" ng-model="lastname">
                         </div>
                         <div class="form-group">
-                            <label for="recipient-name" class="control-label">Job:</label>
+                            <label class="control-label">Job:</label>
                             <input type="text" class="form-control" id="recipient-name" ng-model="job">
                         </div>
                         <div class="form-group">
-                            <label for="recipient-name" class="control-label">Email:</label>
+                            <label class="control-label">Email:</label>
                             <input type="text" class="form-control" id="recipient-name" ng-model="email">
                         </div>
                         <div class="form-check">
@@ -64,22 +67,24 @@
         </div>
     </div>
 
-    <div class="modal fade" id="allMembersModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <!-- Modal see members list -->
+
+    <div class="modal members-modal fade" id="allMembersModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="exampleModalLabel">Members list</h4>
+                    <div class="modal-title" id="exampleModalLabel">Members list</div>
                 </div>
                 <div class="modal-body members-body" ng-repeat='member in members'>
                     <div class="member">
                         <div class="member-img">
                             <img ng-src="{{ member.usr_photo }}"/>
                         </div>
-                       <p>{{ member.usr_firstname }} {{ member.usr_lastname }}</p>
-                       <p class='member-job'>({{ member.usr_job }})</p>
+                        <p>{{ member.usr_firstname }} {{ member.usr_lastname }}</p>
+                        <p class='member-job'>({{ member.usr_job }})</p>
                     </div>
-                   <button ng-if='isAdmin' type="button" class="btn btn-warning" ng-click="select(member)">
+                    <button ng-if='isAdmin' type="button" class="btn btn-warning" ng-click="select(member)">
                     <a href="#deleteMemberModal" data-toggle="modal" data-dismiss="modal">Delete member</a></button>
                 </div>
                 <div class="modal-footer members-footer">
@@ -88,8 +93,10 @@
             </div>
         </div>
     </div>
+
     <!-- Modal delete member -->
-    <div class="modal fade" id="deleteMemberModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <div class="modal confirmation-modal fade" id="deleteMemberModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content confirmation-content">
                 <div class="modal-header confirmation-header">

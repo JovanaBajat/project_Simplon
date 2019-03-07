@@ -36,7 +36,7 @@ let navbar = {
                     job: $scope.job,
                     isAdmin: $scope.clicked,
                     photo: 'https://cdn0.iconfinder.com/data/icons/flat-design-business-set-3/24/people-customer-unknown-512.png',
-                    infos: 'Tell us something about your self!'
+                    infos: 'Tell us something about yourself!'
 
                 }
                 appService.httpWrapper($http, $state, $rootScope, function () {

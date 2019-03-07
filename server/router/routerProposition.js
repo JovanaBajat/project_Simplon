@@ -1,5 +1,5 @@
 const express = require('express');
-const { getPropositions, addProposition, deleteProposition, editProp } = require('../controller/ctrlProposition');
+const { getPropositions, addProposition, deleteProposition, editProp, editPropStatus } = require('../controller/ctrlProposition');
 const router = express.Router();
 
 //get all propositions 
@@ -65,6 +65,23 @@ router.delete('/delete/:id', async (req, res) => {
     }
 
     return res.status(200).send("it worked, proposition deleted")
+})
+
+// change prop status 
+
+router.post('/changeStatus', async (req, res) => {
+    try {
+        propStatus = await editPropStatus(req.body.id, {
+            status: req.body.status,
+            pro_id: req.body.id
+        });
+    } catch (error) {
+        console.log(error)
+        return res.status(500).send(new Error("Erreur", error))
+    }
+
+    return res.status(200).send()
+
 })
 
 module.exports = router;

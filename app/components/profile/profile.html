@@ -1,19 +1,19 @@
 
 <navbar></navbar>
-<div class="profile-content no-border padding-24" ng-init='init()'>
+<div class="profile-content" ng-init='init()'>
     <div class="home">
         <div class="row">
             <div class="col-xs-12 col-sm-3 center">
                 <span class="profile-picture">
                     <img class="img-responsive" alt="avatar"  ng-src="{{ response.data.usr_photo }}">
                 </span>
-                <button type="button" class="btn btn-primary edit-btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Edit profile</button>
+                <button type="button" class="btn btn-primary edit-btn" data-toggle="modal" data-target="#editProfileModal">Edit profile</button>
             </div>
 
             <div class="col-xs-12 col-sm-9 member-infos">
-                <h4 class="blue">
-                    <span class="middle">{{ response.data.usr_firstname }} {{ response.data.usr_lastname }}</span>
-                </h4>
+                <div class="fullname">
+                    <span>{{ response.data.usr_firstname }} {{ response.data.usr_lastname }}</span>
+                </div>
 
                 <div class="profile-user-info">
                     <div class="profile-info-row">
@@ -44,14 +44,21 @@
                             <span>{{ response.data.usr_job }}</span>
                         </div>
                     </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name"> Status: </div>
+
+                        <div class="profile-info-value">
+                            <span>{{ response.data.usr_is_admin ? 'Admin' : 'Member' }}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-9 member-about">
                 <div class="widget-box transparent">
                     <div class="widget-header widget-header-small">
-                        <h4 class="widget-title smaller">
+                        <div class="about-me">
                             Little About Me:
-                        </h4>
+                        </div>
                     </div>
 
                     <div class="widget-body">
@@ -62,29 +69,29 @@
         </div>
     </div>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="exampleModalLabel">Edit your profile</h4>
+                    <div class="modal-title">Edit your profile</div>
                 </div>
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label for="recipient-name" class="control-label">First name:</label>
+                            <label class="control-label">First name:</label>
                             <input type="text" class="form-control" id="recipient-name" ng-model="response.data.usr_firstname">
                         </div>
                         <div class="form-group">
-                            <label for="recipient-name" class="control-label">Lastname:</label>
+                            <label class="control-label">Lastname:</label>
                             <input type="text" class="form-control" id="recipient-name" ng-model="response.data.usr_lastname">
                         </div>
                         <div class="form-group">
-                            <label for="recipient-name" class="control-label">Job:</label>
+                            <label class="control-label">Job:</label>
                             <input type="text" class="form-control" id="recipient-name" ng-model="response.data.usr_job">
                         </div>
                         <div class="form-group">
-                            <label for="message-text" class="control-label">About me:</label>
+                            <label class="control-label">About me:</label>
                             <textarea class="form-control" id="message-text" ng-model="response.data.usr_infos"></textarea>
                         </div>
                         <input

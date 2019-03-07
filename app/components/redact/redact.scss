@@ -1,13 +1,13 @@
 .redact-proposition {
     width: 90%;
-    border-radius: 5px;
     margin-left: 30px;
+    border-radius: 5px;
     background-color: $white;
     
     .container-div {
         width: 100%;
-        margin: 30px 0px;
         padding: 15px;
+        margin: 30px 0px;
         border-radius: 5px;
         border: 1px solid rgba($violet, 0.1);
         background-color: rgba($violet, 0.03);
@@ -33,25 +33,12 @@
                 @include title;
             }
         }
-
-        .header-action {
-            top: 0px;
-            right: 0px;
-            width: 15px;
-            height: 15px;
-            cursor: pointer;
-            position: absolute;
-            
-            > i {
-                width: 15px;
-                height: 15px;
-            }
-        }
     }
 
     .content {
         width: 100%;
         padding: 0px 0px 20px 0px;
+
         textarea {
             @include content;
             text-align: left;
@@ -111,13 +98,7 @@
         }
 
         .input-area {
-            width: 100%;
-            position: relative;
             padding-bottom: 10px;
-
-            &.no-margin {
-                padding-bottom: 0px;
-            }
 
             .text {
                 @include content;
@@ -126,83 +107,7 @@
                 color: rgba($violet, 0.5);
             }
         }
-
-        // .attachments {
-        //     width: 100%;
-        //     display: flex;
-        //     background-color: #ffffff;
-        //     border-bottom-left-radius: 5px;
-        //     border-bottom-right-radius: 5px;
-        //     border-left: solid 1px #dfdedf;
-        //     border-right: solid 1px #dfdedf;
-        //     border-bottom: solid 1px #dfdedf;
-            
-        //     .container-attachments {
-        //         width: 100%;
-        //         height: 100%;
-        //         display: flex;
-        //         padding: 10px 15px;
-        //         border-bottom-left-radius: 5px;
-        //         border-bottom-right-radius: 5px;
-        //         background-color: rgba($violet, 0.03);
-
-        //         display: flex;
-
-        //         .add-attachment {
-        //             flex: 1;
-        //             cursor: pointer;
-        //             color: rgba($violet, 0.3);
-        //         }
-
-        //         .list-attachments {
-        //             flex: 1;
-        //             display: flex;
-        //             flex-wrap: wrap;
-
-        //             .attachment {
-        //                 width: 80px;
-        //                 height: 80px;
-        //                 margin-right: 10px;
-        //                 border-radius: 5px;
-        //                 position: relative;
-        //                 background-size: cover;
-        //                 background-position: center;
-        //                 background-repeat: no-repeat;
-
-        //                 .del {
-        //                     top: 5px;
-        //                     right: 5px;
-        //                     width: 14px;
-        //                     height: 14px;
-        //                     cursor: pointer;
-        //                     position: absolute;
-
-        //                     > img {
-        //                         width: 100%;
-        //                         height: 100%;
-        //                     }
-        //                 }
-        //             }
-        //         }
-
-        //         .icon-attachment {
-        //             right: 15px;
-        //             width: 20px;
-        //             height: 16px;
-        //             bottom: 20px;
-        //             cursor: pointer;
-        //             text-align: right;
-        //             position: absolute;
-                    
-        //             > i {
-        //                 font-size: 15px;
-        //                 color: rgba($violet, 0.15);
-        //             }
-        //         }
-        //     }
-        // }
     }
-
     .footer {
         width: 100%;
         
@@ -224,7 +129,6 @@
                 
                 .button {
                     @include content;
-                    //text-align: center;
                     width: 100%;
                     padding: 15px;
                     cursor: pointer;

@@ -1,19 +1,71 @@
 <navbar></navbar>
 <div class="home-wrapper" ng-init='init()'>
     <redact get="getPropositions"></redact>
-    <div class="proposition-wrapper" ng-repeat="prop in response.data">
-        <div class="proposition"  data-toggle="modal" data-target="#example" ng-click="select(prop)" data-whatever="@getbootstrap" >{{ prop.pro_title}}</div>
-        <div class="like">
-            <i class="far fa-thumbs-up"></i>
-            <div class="like-num">{{prop.likes}}</div>
+
+    <div class="dropdowns">
+
+        <!-- Search bar-->
+        <form class="navbar-form" role="search">
+            <div class="input-group add-on">
+                <input class="form-control" placeholder="Search" name="srch-term" id="myInput" type="text" ng-model="search">
+                <i class="fas fa-search"></i>
+            </div>
+        </form>
+        <!-- Dropdown order by-->
+        <div class="dropdown">
+            <span>Order by: </span>
+            <div class="btn-group">
+                <button type="button" class="btn dropdown-toggle button-order" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-bind-html="filtered.text">
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" ng-click="orderItems('date')">Date</a>
+                    <a class="dropdown-item" ng-click="orderItems('status')">Status</a>
+                    <a class="dropdown-item" ng-click="orderItems('vote')">Favorite</a>
+                </div>
+            </div>
         </div>
+    
+        <!-- Dropdown filter by-->
+        <div class="dropdown">
+            <span>Filter by: </span>
+            <div class="btn-group">
+                <button type="button" class="btn dropdown-toggle button-order" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-bind-html="filteredItems.text">
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" ng-click="filterItems('all')">All</a>
+                    <a class="dropdown-item" ng-click="filterItems('validated')">Validated</a>
+                    <a class="dropdown-item" ng-click="filterItems('refused')">Refused</a>
+                    <a class="dropdown-item" ng-click="filterItems('pending')">Pending</a>
+                </div>
+            </div>
+        </div>
+        <div class="like">  
+            <div class="like-num">
+                <i class="far fa-thumbs-up"></i>
+            </div>
+        </div>
+        <span class="slash">/</span>
         <div class="dislike">
-            <i class="far fa-thumbs-down"></i>
-            <div class='dislike-num'>{{prop.dislikes}}</div>
+            <div class='like-num' >
+                <i class="far fa-thumbs-down"></i>
+            </div>
         </div>
     </div>
 
-    <div class="modal fade" id="example" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="proposition-wrapper" ng-repeat="prop in ordered | filter:searchFilter">
+        <div class="proposition"  
+            ng-class="{'validated': prop.pro_status == 1 ,'refused': prop.pro_status == 2}"
+            data-toggle="modal" 
+            data-target="#modalSeeProp" 
+            ng-click="select(prop)">{{ prop.pro_title}}</div>
+        <div class="votes" ng-if="prop.votes.length">  
+            <span class="like">{{prop.likes}}</span>
+            <span class="slash">/</span>
+            <span class="dislike">{{prop.dislikes}}</span>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalSeeProp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header prop-header">
@@ -24,8 +76,8 @@
                 <div class="modal-body prop-body">
                     <div class="content">{{selected.pro_description}}</div>
                     <div class="author">
-                        <span>by</span>
-                        <span>{{selected.usr_firstname }} {{selected.usr_lastname }}</span>
+                        <span class="by">by</span>
+                        <span class="author-infos">{{selected.usr_firstname }} {{selected.usr_lastname }}</span>
                     </div>
                     <div class="date">{{ date }}</div>
                 </div>
@@ -37,7 +89,12 @@
                         <i class="far fa-thumbs-down" ng-click="like(false)"></i>
                     </div>
                 </div>
+                <div class="status-info" ng-class="{'accepted': selected.pro_status == 1, 'refused' : selected.pro_status == 2}">
+                    {{ selected.pro_status == 1 ? 'Proposition has been accepted' : selected.pro_status == 2 ? 'Proposition has been refused' : '' }}
+                </div>
                 <div class="modal-footer prop-footer">
+                    <button ng-if="isAdmin" type="button" class="btn btn-success success" data-dismiss="modal" ng-click="validate(true)">Validate</button>
+                    <button ng-if="isAdmin" type="button" class="btn btn-danger danger" data-dismiss="modal" ng-click="validate(false)">Refuse</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-warning" ng-if="selected.usr_id == isSelf">
                         <a href="#editModal" data-toggle="modal" data-dismiss="modal">Edit</a></button>
@@ -49,13 +106,14 @@
         </div>
     </div>
     
-    <!-- Modal edit -->
+    <!-- Modal edit proposition -->
+
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="exampleModalLabel">Edit proposition</h4>
+                    <div class="modal-title edit-prop-title" id="exampleModalLabel">Edit proposition</div>
                 </div>
                 <div class="modal-body edit-body">
                     <form>
@@ -80,7 +138,8 @@
     </div>
 
     <!-- Modal delete proposition -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content confirmation-content">
                 <div class="modal-header confirmation-header">

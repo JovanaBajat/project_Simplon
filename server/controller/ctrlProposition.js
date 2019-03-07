@@ -34,7 +34,7 @@ const getPropositions = async function (userId) {
         }) !== -1
 
         if (!didUserVoteForThisProposition) {
-            return {...proposition, votes: []}
+            return {...proposition, likes: 0, dislikes: 0, votes: []}
         }
         
         let likes = 0
@@ -51,7 +51,6 @@ const getPropositions = async function (userId) {
     
     return formattedPropositions
 }
- 
 
 const addProposition = async function (proposition) {
     const timestamp = moment();
@@ -101,5 +100,21 @@ const deleteProposition = async function (id) {
 
 }
 
+const editPropStatus = async function (id, propInfos) {
+    const query = SQL`
+    UPDATE 
+        proposition_pro
+    SET
+        pro_status = ${propInfos.status}
+    WHERE 
+        pro_id = ${id}
+        RETURNING *
+    `
+    const queryResults = await client.query(query)
+        
+    return queryResults
 
-module.exports = { getPropositions, addProposition, deleteProposition, editProp }
+}
+
+
+module.exports = { getPropositions, addProposition, deleteProposition, editProp, editPropStatus }

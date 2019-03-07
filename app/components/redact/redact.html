@@ -1,60 +1,45 @@
 <div class="redact-proposition" data-ng-init="init()">
-        <div class="container-div">
-            <!-- Header -->
-            <div class="header">
-                <div class="header-content proposition">
-                    <i class="icon fas fa-pen"></i>
-                    <div class="title">New proposition</div> 
-                </div>
+    <div class="container-div">
+        
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content proposition">
+                <i class="icon fas fa-pen"></i>
+                <div class="title">New proposition</div> 
             </div>
-            <!-- Content -->
-            <div class="content">
-                <!-- Title -->
-                <div class="input-area" ng-class="{'no-margin': !myForm.title.$dirty}">
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+
+            <!-- Title -->
+            <form class="redact-content" name="myForm">
+                <div class='input-area'>
                     <div class="text">Title</div>
-                    <form class="my-form" name="myForm">
+                    <div class="input-area">
                         <input  type="text" name="title"
                                 ng-model="title"
                                 required
                                 placeholder="Title"/>
-                    </form>
+                    </div>
                 </div>
+
                 <!-- Description -->
+                
                 <div class="input-area">
                     <div class="text">Description</div>
-                    <div class="input-area" ng-class="{'no-margin': !myForm.title.$dirty}">
-                        <form class="redact-content" name="myForm">
+                    <div class="input-area">
                             <textarea type="text" name="description"
                                     ng-model="description"
                                     required
-                                    placeholder="Description"></textarea>
-                        </form>
-                    </div>
-                    <!-- Attachment box -->
-                    <!-- <div class="attachments">
-                        <div class="container-attachments">
-                            <div class="add-attachment" ng-if="redact.attachmentsNum == 0"
-                                ng-click="uploadAttachment()">{{ translation.ADD_AN_IMAGE }}</div>
-    
-                            <div class="list-attachments" ng-if="redact.attachmentsNum > 0">
-                                <div class="attachment" ng-repeat="attachment in redact.attachments"
-                                    ng-style="{ 
-                                        'background-image': 'url({{ attachment.preview }})'
-                                    }">
-                                    <div class="del" ng-click="removeAttachment(attachment)">
-                                        <img src="images/icons/cross-red.svg" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="icon-attachment" ng-click="uploadAttachment()">
-                                <input id="file-input-hidden" multiple accept="image/x-png,image/jpg,image/jpeg" type="file" style="display: none"/>
-                                <i class="fa fa-camera"></i>
-                            </div>
+                                    placeholder="Description">
+                            </textarea>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
-
+            </form>
             <!-- Footer -->
+    
             <div class="footer">
                 <!-- Action buttons -->
                 <div class="actions">
@@ -62,14 +47,16 @@
                         <div class="button grey" ng-click="reset()">Cancel</div>
                     </div>
                     <div class="action">
-                        <div class="button blue" 
+                        <div class="button blue"
                             ng-class="{
-                                'is-disabled': myForm.title == '' && myForm.description == ''
+                                'is-disabled': !myForm.title.$valid || !myForm.description.$valid
                             }"
-                            ng-click="submitProp()">Publish</div>
+                            ng-click="submitProp()">Publish
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
-    
+</div>

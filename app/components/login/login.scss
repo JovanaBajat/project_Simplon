@@ -7,19 +7,20 @@
     background-repeat: no-repeat; 
     background-image: url("https://hdwallsource.com/img/2014/9/blur-26347-27038-hd-wallpapers.jpg"); 
     .alert {
+        @include content;
         width: 40%;
-        display: flex;
         margin: auto;
+        display: flex;
         justify-content: center;
     }
 }
 .login-form .form-control {
-    background: $grey none repeat scroll 0 0;
-    border: 1px solid #d4d4d4;
-    border-radius: 4px;
-    font-size: 14px;
     height: 50px;
+    font-size: 14px;
     line-height: 50px;
+    border-radius: 4px;
+    border: 1px solid #d4d4d4;
+    background: $grey none repeat scroll 0 0;
 }
 .main-div {
     max-width: 40%;
@@ -31,6 +32,14 @@
     @media screen and (max-width: 700px) {
         max-width: 100%
     }
+    .login {
+        @include title;
+        font-size: 25px;
+        margin-bottom: 20px;
+    }
+    > p {
+        @include content;
+    }
 }
 
 .login-form .form-group {
@@ -39,21 +48,21 @@
 .login-form { 
     text-align: center;
     .forgot {
-        text-align: left;
         margin-bottom: 30px;
         .forgot-text {
+            @include content;
+            text-align: left;
             color: $darkGrey;
-            font-size: 14px;
             cursor: pointer;
             text-decoration: underline;
         }
     }
     .btn.btn-primary {
+        @include title;
         padding: 0;
         width: 100%;
         height: 50px;
         color: $white;
-        font-size: 14px;
         line-height: 50px;
         border-color: $orange;
         background-color: $orange;

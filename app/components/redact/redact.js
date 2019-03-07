@@ -9,8 +9,8 @@ let redact = {
 
             $scope.init = function () {
                 console.log('redact -', $scope);
-            }
 
+            }
             // post one proposition 
 
             $scope.submitProp = () => {

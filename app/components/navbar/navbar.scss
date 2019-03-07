@@ -1,10 +1,10 @@
 a {
     @include content;
-    font-size: 16px !important;
-    color: $white !important;
-    border: none !important;
     display: flex;
     align-items: center;
+    border: none !important;
+    color: $white !important;
+    font-size: 16px !important;
 
     .logo{
         width: 40px;
@@ -19,43 +19,76 @@ a {
 .modal-backdrop.in {
     display: none;
 }
-.members-body {
-    .member {
-        display: flex;
-        align-items: center;
-        .member-img {
-            > img {
-                width: 30px;
-                height: 30px;
-                margin-right: 10px;
+.modal {
+    .close {
+        font-size: 20px;
+    }
+    .control-label, .form-check-label {
+        @include title;
+        font-size: 14px;
+        text-align: left;
+    }
+    .form-control {
+        @include content;
+        text-align: left;
+    }
+    button {
+        @include content;
+    }
+}
+.members-modal {
+    .modal-title {
+        @include title;
+        text-align: left;
+    }
+    .members-body {
+        .member {
+            @include content;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            .member-img {
+                > img {
+                    width: 30px;
+                    height: 30px;
+                    margin-right: 10px;
+                }
+            }
+            .member-job {
+                margin-left: 5px;
+                font-style: italic;
             }
         }
-        .member-job {
-            margin-left: 5px;
-            font-style: italic;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba($violet, 0.1);
+        button {
+            @include content;
+            > a {
+                text-decoration: none;
+            }
         }
+        
     }
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid rgba($violet, 0.1);
+    .members-footer {
+        border-top: none;
+    }
+}
+
+.confirmation-modal {
+    .confirmation-body {
+        @include title;
+        font-size: 14px;
+        display: flex;
+        max-height: 20vh;
+        justify-content: center;
+    }
+    .confirmation-header, .confirmation-footer {
+        border: none;
+    }
     button {
-        > a {
-            text-decoration: none;
-        }
+        @include content;
     }
-    
 }
-.members-footer {
-    border-top: none;
-}
-.confirmation-body {
-    max-height: 20vh;
-}
-.confirmation-header, .confirmation-footer {
-    border: none;
-}
-.confirmation-body {
-    display: flex;
-    justify-content: center;
-}
+
         

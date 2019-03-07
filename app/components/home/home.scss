@@ -2,43 +2,136 @@
     margin-top: 40px;
     padding:10px;
     height: 100%;
+
+    .dropdowns {
+        display: flex;
+        margin-left: 15px;
+        align-items: center;
+        padding-bottom: 30px;
+        .navbar-form {
+            width: 56%;
+            .input-group {
+                width: 100%;
+                > i {
+                    top: 8px;
+                    z-index: 9;
+                    opacity: 0.3;
+                    position: relative;
+                    margin-left: -25px;
+                }
+                .form-control {
+                    @include content;
+                    width: 90%;
+                    padding: 15px;
+                    text-align: left;
+                    border-radius: 5px;
+                    border: 1px solid rgba($violet, 0.1);
+                }
+            }
+        }
+        .dropdown {
+            @include content;
+            text-align: left;
+            margin-left: 20px;
+            .button-order {
+                min-width: 100px;
+                color: black;
+                margin-left: 10px;
+                border: solid 1px rgba($blue, 0.5);
+                background-color: rgba($blue, 0.15);
+            }
+            .dropdown-menu {
+                padding-left: 10px;
+            }
+            .dropdown-item {
+                padding: 5px;
+                cursor: pointer;
+                text-decoration: none;
+                color: black !important;
+                border-bottom: solid 1px rgba(#dfdedf, 0.3) !important;
+                &:last-child {
+                    border: none !important;
+                }
+            }
+        }
+        .like, .dislike {
+            width: 50px;
+            .like-num {
+                @include content;
+                font-size: 15px;
+                display: flex;
+                align-items: center;
+                > i {
+                    font-size: 30px;
+                    margin: 0px 20px 0px 10px;
+                    cursor: pointer;
+                    &.fa-thumbs-up {
+                        color: $green;
+                    }
+                    &.fa-thumbs-down {
+                        color: $red;
+                    }
+                }
+            }
+        }
+        .like {
+            margin-left: 30px;
+        }
+        .slash {
+            font-size: 30px;
+        }
+    }
     
     .proposition-wrapper {
         display: flex;
         align-items: center;
         margin: 0 30px 30px 30px;
         .proposition {
-        width: 80%;
-        padding: 20px;
-        cursor: pointer;
-        border-radius: 5px;
-        margin-right: 30px;
-        text-align: center;
-        border: 2px solid rgba($violet, 0.1);
-        background-color: rgba($green, 0.1);
-        }
-        .like, .dislike {
-            display: flex;
-            align-items: center;
-            margin-right: 10px;
-            > i {
-                font-size: 30px;
-                margin-right: 20px;
-                cursor: pointer;
-                &.fa-thumbs-up {
-                    color: $green;
-                }
-                &.fa-thumbs-down {
-                    color: $red;
-                }
+            @include content;
+            width: 85%;
+            padding: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-right: 30px;
+            border: 1px solid rgba($violet, 0.1);
+            background-color: rgba($violet, 0.03);
+            &.validated {
+                border: 1px solid rgba($violet, 0.1);
+                background-color: rgba($green, 0.2);
             }
-            .like-num {
+            &.refused {
+                border: 1px solid rgba($violet, 0.1);
+                background-color: rgba($red, 0.1);
+            }
+        }
+        .votes {
+            @include content;
+            font-size: 20px;
+            margin-left: 30px;
+            .like {
                 color: $green;
             }
-            .dislike-num {
+            .dislike {
                 color: $red;
             }
+
         }
+        // .like, .dislike {
+        //     .like-num {
+        //         @include content;
+        //         font-size: 15px;
+        //         display: flex;
+        //         align-items: center;
+        //         > i {
+        //             font-size: 30px;
+        //             margin: 0px 20px 0px 10px;
+        //             cursor: pointer;
+        //         }
+        //     }
+        // }
+        // .like {
+        //     margin-right: 20px;
+        // }
     }
 
     .modal {
@@ -54,7 +147,6 @@
             display: flex;
             justify-content: center;
             padding: 0px 70px;
-            //text-align: center;
         }
         .prop-body {
             margin-top: 30px;
@@ -66,6 +158,15 @@
                 @include content;
                 margin-bottom: 30px;
             }
+            .author {
+                .by, .author-infos {
+                    @include content;
+                }
+            }
+            .date {
+                @include content;
+                margin-bottom: 20px;
+            }
         }
         .separation {
             margin: 0px 50px;
@@ -73,11 +174,15 @@
         }
         .votes {
             display: flex;
+            margin-bottom: 20px;
             justify-content: center;
             .like, .dislike {
+                width: 30px;
                 display: flex;
                 align-items: center;
-                margin-right: 10px;
+                &:first-child {
+                    margin-right: 20px;
+                }
                 > i {
                     font-size: 30px;
                     margin-right: 20px;
@@ -97,21 +202,40 @@
                 }
             }
         }
+        .status-info {
+            @include content;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            &.accepted {
+                color: $green;
+            }
+            &.refused {
+                color: $red;
+            }
+        }
+        .edit-prop-title {
+            @include title;
+            text-align: left;
+        }
         .confirmation-body {
+            @include title;
+            display: flex;
+            font-size: 14px;
             max-height: 20vh;
+            justify-content: center;
         }
         .confirmation-header, .confirmation-footer {
             border: none;
         }
-        .confirmation-body {
-            display: flex;
-            justify-content: center;
+        .modal-footer {
+            @include content;
+            text-align: right;
         }
-
         .edit-body {
             textarea {
-                resize: none;
                 width: 100%;
+                resize: none;
                 height: 150px;
                 padding: 15px 15px;
                 border-radius: 5px;

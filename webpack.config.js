@@ -27,7 +27,10 @@ module.exports = {
       test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
       loader: 'file-loader?name=[name].[ext]&publicPath=../fonts/&outputPath=/assets/fonts/'
     },
-            { test: /\.(jpe?g|png|gif)$/i, loader: 'file-loader?name=/assets/images/[name].[ext]' },
+      { 
+      test: /\.(jpe?g|png|gif)$/i,
+      loader: 'file-loader?name=/assets/images/[name].[ext]' 
+    },
     {
       test: /\.(html)$/,
       loader: 'file-loader?name=[path][name].[ext]'
