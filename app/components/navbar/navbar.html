@@ -28,7 +28,7 @@
 
     <!-- Modal invite members -->
 
-    <div class="modal fade" id="invitationModal" tabindex="-1" role="dialog">
+    <div class="modal fade modal-invite-member" id="invitationModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -86,6 +86,8 @@
                     </div>
                     <button ng-if='isAdmin' type="button" class="btn btn-warning" ng-click="select(member)">
                     <a href="#deleteMemberModal" data-toggle="modal" data-dismiss="modal">Delete member</a></button>
+                    <button type="button" class="button-x" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
                 </div>
                 <div class="modal-footer members-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

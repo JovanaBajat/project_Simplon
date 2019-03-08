@@ -10,4 +10,16 @@
     font-weight: 700;
     text-align: center;
 }
+@mixin small-content {
+    font-family: 'Muli', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    text-align: center;
+}
+@mixin small-title {
+    font-family: 'Muli', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    text-align: center;
+}
 

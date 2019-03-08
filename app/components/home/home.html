@@ -11,31 +11,34 @@
                 <i class="fas fa-search"></i>
             </div>
         </form>
-        <!-- Dropdown order by-->
-        <div class="dropdown">
-            <span>Order by: </span>
-            <div class="btn-group">
-                <button type="button" class="btn dropdown-toggle button-order" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-bind-html="filtered.text">
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" ng-click="orderItems('date')">Date</a>
-                    <a class="dropdown-item" ng-click="orderItems('status')">Status</a>
-                    <a class="dropdown-item" ng-click="orderItems('vote')">Favorite</a>
+
+        <div class="dr">
+            <!-- Dropdown order by-->
+            <div class="dropdown">
+                <span>Order by:</span>
+                <div class="btn-group">
+                    <button type="button" class="btn dropdown-toggle button-order" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-bind-html="filtered.text">
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" ng-click="orderItems('date')">Date</a>
+                        <a class="dropdown-item" ng-click="orderItems('status')">Status</a>
+                        <a class="dropdown-item" ng-click="orderItems('vote')">Favorite</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    
-        <!-- Dropdown filter by-->
-        <div class="dropdown">
-            <span>Filter by: </span>
-            <div class="btn-group">
-                <button type="button" class="btn dropdown-toggle button-order" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-bind-html="filteredItems.text">
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" ng-click="filterItems('all')">All</a>
-                    <a class="dropdown-item" ng-click="filterItems('validated')">Validated</a>
-                    <a class="dropdown-item" ng-click="filterItems('refused')">Refused</a>
-                    <a class="dropdown-item" ng-click="filterItems('pending')">Pending</a>
+        
+            <!-- Dropdown filter by-->
+            <div class="dropdown">
+                <span>Filter by: </span>
+                <div class="btn-group">
+                    <button type="button" class="btn dropdown-toggle button-order" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-bind-html="filteredItems.text">
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" ng-click="filterItems('all')">All</a>
+                        <a class="dropdown-item" ng-click="filterItems('validated')">Validated</a>
+                        <a class="dropdown-item" ng-click="filterItems('refused')">Refused</a>
+                        <a class="dropdown-item" ng-click="filterItems('pending')">Pending</a>
+                    </div>
                 </div>
             </div>
         </div>

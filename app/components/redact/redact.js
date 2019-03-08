@@ -8,8 +8,6 @@ let redact = {
         constructor($scope, $rootScope, $http, $state, appService) {
 
             $scope.init = function () {
-                console.log('redact -', $scope);
-
             }
             // post one proposition 
 
