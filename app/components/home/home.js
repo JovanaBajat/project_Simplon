@@ -14,12 +14,13 @@ let home = {
         $scope.isSelf = $rootScope.currentUser.usr_id;
         // check if connected user is admin
         $scope.isAdmin = $rootScope.currentUser.usr_is_admin;
-
         // authentication wrapper
         appService.httpWrapper($http, $state, $rootScope, $scope.getPropositions);
         
       }
 
+      // for searhbar
+      // The Object.defineProperties() method defines new or modifies existing properties directly on an object, returning the object.
       Object.defineProperty($scope, "searchFilter", {
         get: function () {
           var out = {};
@@ -31,23 +32,24 @@ let home = {
           return out;
         }
       });
-        // Set value to the model order by 
 
-        $scope.orderItems = function (filter) {
+      // Set value to the model order by 
 
-          $scope.filtered = $scope.orderItemsDropdown[filter];
-          $scope.ordered = $scope.orderItemsDropdown[filter].order;
+      $scope.orderItems = function (filter) {
 
-        };
-        // Set value to the model filter by
+        $scope.filtered = $scope.orderItemsDropdown[filter];
+        $scope.ordered = $scope.orderItemsDropdown[filter].order;
 
-        $scope.filterItems = function (filter) {
+      };
+      // Set value to the model filter by
 
-          $scope.filteredItems = $scope.orderItemsDropdownFilter[filter];
-          $scope.ordered = $scope.orderItemsDropdownFilter[filter].filter;
-          console.log($scope.filteredItems);
+      $scope.filterItems = function (filter) {
 
-        };
+        $scope.filteredItems = $scope.orderItemsDropdownFilter[filter];
+        $scope.ordered = $scope.orderItemsDropdownFilter[filter].filter;
+        console.log($scope.filteredItems);
+
+      };
 
       // select one proposition
 
@@ -81,7 +83,6 @@ let home = {
           $scope.response = response.data;
           response.data.forEach(function (data) {
             data.favorite = data.vote !== [] ? data.likes - data.dislikes : null;
-            console.log(data)
           })
 
           // order by

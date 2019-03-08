@@ -15,11 +15,14 @@ a {
     padding-left: 30px;
     padding-right: 30px;
     background-color: $violet;
+    @media screen and (max-width: 500px) {
+        width: 100%;
+    }
 }
 .modal-backdrop.in {
     display: none;
 }
-.modal {
+.modal-invite-member {
     .close {
         font-size: 20px;
     }
@@ -35,8 +38,38 @@ a {
     button {
         @include content;
     }
+    @media screen and (max-width: 500px) {
+        .close {
+            font-size: 30px;
+        }
+        .modal-dialog {
+            height: 95vh;
+            margin: 0;
+            .modal-content {
+                height: 100%;
+                .modal-header {
+                    padding-top: 25px;
+                }
+                .modal-body {
+                    padding-top: 30px; 
+                    .form-control {
+                        height: 50px;
+                    }
+                }
+                .modal-footer {
+                    padding-top: 30px;
+                    > button {
+                        padding: 15px;
+                    }
+                }
+            }
+        }
+    }
 }
 .members-modal {
+    .close {
+        font-size: 20px;
+    }
     .modal-title {
         @include title;
         text-align: left;
@@ -44,8 +77,8 @@ a {
     .members-body {
         .member {
             @include content;
-            text-align: left;
             display: flex;
+            text-align: left;
             align-items: center;
             .member-img {
                 > img {
@@ -67,19 +100,36 @@ a {
             > a {
                 text-decoration: none;
             }
-        }
-        
+            &.button-x {
+                display: none;
+            }
+        }   
     }
     .members-footer {
         border-top: none;
+        button {
+            @include content;
+        }
+    } 
+    @media screen and (max-width: 500px) {
+        .members-body {
+            .btn {
+                display: none;
+            }
+            .button-x {
+                @include title;
+                font-size: 20px;
+                display: flex !important;
+            }
+        }
     }
 }
 
 .confirmation-modal {
     .confirmation-body {
         @include title;
-        font-size: 14px;
         display: flex;
+        font-size: 14px;
         max-height: 20vh;
         justify-content: center;
     }
