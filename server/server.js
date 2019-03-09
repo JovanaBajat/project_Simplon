@@ -4,7 +4,7 @@ const router = require('./router/router');
 const cors = require('cors');
 const { validateToken } = require('./authentication');
 const jwt = require("jsonwebtoken");
-const email = require('./email');
+//const email = require('./email');
 const server = express()
 
 server.use(cors());

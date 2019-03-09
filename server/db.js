@@ -5,7 +5,6 @@ const client = new Client({
     port: '5433',
     database: 'Prisme',
     user: 'postgres',
-   // password: ''
 });
 
 (async () => {
