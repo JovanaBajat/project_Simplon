@@ -11,7 +11,9 @@ router.post('/addUser', async (req, res) => {
     const newUser = {
         ...req.body
     }
+
     const randomGeneratedPassword = generatePassword();
+    
     try {
 
         const accountAlreadyExists = await getUserFromEmail(newUser.email)
@@ -21,7 +23,9 @@ router.post('/addUser', async (req, res) => {
         const encryptedPassword = encryptPassword(randomGeneratedPassword);
         newUser.encryptedPassword = encryptedPassword;
         await insertNewUser(newUser);
+
     } catch(error) {
+
         return res.status(500).json(error.message);
     }
 
@@ -29,13 +33,20 @@ router.post('/addUser', async (req, res) => {
     const mailOptions = {
         from: 'cae_prisme_elias@yahoo.com', // sender address
         to: newUser.email, // list of receivers
-        subject: 'Votre compte est .......', // Subject line
-        html: `<p>your password is ${randomGeneratedPassword}</p>`
+        subject: "Votre compte vient d'être créé", // Subject line
+        html: `<div>
+                <h2>Bonjour ${newUser.firstname}</h2><br/>
+                <div>Bienvenue sur la plateforme de démocratie engagée de <a href="http://localhost:8888/#!/loginPage">Prisme</a> !
+                    Votre compte utilisateur vient d’être créé.
+                </div><br/>
+                <div>Vous pouvez désormais vous connecter à l’aide de vos identifiants:</div><br/>
+                <ul><li>Email: ${newUser.email}</li><li>Mot de passe: ${randomGeneratedPassword}</li></ul><br/>
+                <div>Bonnes contributions et à bientôt sur la plateforme!</div></div>`
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
         if(error) {            
-            console.log(err)
+            console.log(error)
             return res.status(500).json(error.message);
         }
         else {

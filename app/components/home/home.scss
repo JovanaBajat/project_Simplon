@@ -3,56 +3,98 @@
     height: 100%;
     margin-top: 40px;
 
+    .upper {
+        display: flex;
+        .first {
+            width: 70%;
+        }
+        @media screen and (max-width: 500px) {
+            width: 100%;
+            .first {
+                width: 100%;
+            }
+        }
+        .second {
+            @include content;
+            width: 30%;
+            padding: 15px;
+            text-align: left;
+            border-radius: 5px;
+            margin: 30px 30px 30px 0px;
+            border: 1px solid rgba($violet, 0.1);
+            .info-content {
+                max-height: 455px;
+                overflow: scroll;
+                .list {
+                    font-weight: 700;
+                    text-align: left;
+                }
+            }
+            @media screen and (max-width: 500px) {
+                display: none;
+            }
+            
+        }
+    }
+
     .dropdowns {
         display: flex;
         margin-left: 15px;
         align-items: center;
         padding-bottom: 30px;
-        .navbar-form {
-            width: 56%;
-            .input-group {
-                width: 100%;
-                > i {
-                    top: 8px;
-                    z-index: 9;
-                    opacity: 0.3;
-                    position: relative;
-                    margin-left: -25px;
-                }
-                .form-control {
-                    @include content;
-                    width: 90%;
-                    padding: 15px;
-                    text-align: left;
-                    border-radius: 5px;
-                    border: 1px solid rgba($violet, 0.1);
+        .dropdowns-wrapper {
+            width: 85%;
+            display: flex;
+            .navbar-form {
+                width: 56%;
+                .input-group {
+                    width: 100%;
+                    > i {
+                        top: 8px;
+                        z-index: 9;
+                        opacity: 0.3;
+                        position: relative;
+                        margin-left: -25px;
+                    }
+                    .form-control {
+                        @include content;
+                        width: 100%;
+                        padding: 15px;
+                        text-align: left;
+                        border-radius: 5px;
+                        border: 1px solid rgba($violet, 0.1);
+                    }
                 }
             }
-        }
-        .dr {
-            display: flex;
-            .dropdown {
-                @include content;
-                text-align: left;
-                margin-left: 20px;
-                .button-order {
-                    min-width: 100px;
-                    color: black;
-                    margin-left: 10px;
-                    border: solid 1px rgba($blue, 0.5);
-                    background-color: rgba($blue, 0.15);
-                }
-                .dropdown-menu {
-                    padding-left: 10px;
-                }
-                .dropdown-item {
-                    padding: 5px;
-                    cursor: pointer;
-                    text-decoration: none;
-                    color: black !important;
-                    border-bottom: solid 1px rgba(#dfdedf, 0.3) !important;
-                    &:last-child {
-                        border: none !important;
+            .dr {
+                display: flex;
+                align-items: center;
+                .dropdown {
+                    @include content;
+                    text-align: left;
+                    margin-left: 20px;
+                    > span {
+                        margin-left: 10px;
+                    }
+                    .button-order {
+                        min-width: 100px;
+                        color: black;
+                        margin-left: 10px;
+                        border: solid 1px rgba($blue, 0.5);
+                        background-color: rgba($blue, 0.15);
+                    }
+                    .dropdown-menu {
+                        padding-left: 10px;
+                    }
+                    .dropdown-item {
+                        padding: 5px;
+                        cursor: pointer;
+                        text-decoration: none;
+                        color: black !important;
+                        border-bottom: solid 1px rgba(#dfdedf, 0.3) !important;
+                        &:last-child {
+                            border: none !important;
+                        }
                     }
                 }
             }
@@ -87,50 +129,53 @@
             width: 100%;
             margin-left: 0;
             @include small-content;
-            flex-direction: column;
-            .navbar-form {
+            .dropdowns-wrapper {
                 width: 100%;
-                margin-left: 20px;
-                .input-group {
-                    height: 50px;
-                    > i {
-                        top: 23px;
-                        margin-left: -100px;
-                    }
-                    .form-control {
-                        @include small-content;
-                        height: 130%;
-                    }
-                }
-            }
-            .dr {
-                width: 100%;
-                margin-top: 20px;
                 flex-direction: column;
-                .dropdown {
-                    height: 60px;
-                    display: flex;
-                    margin-bottom: 20px;
-                    padding-right: 10px;
-                    align-items: center;
-                    justify-content: space-between;
-                    @include small-content;
-                    text-align: left;
-                    .btn-group {
-                        width: 230px;
-                        height: 60px;
-                        .button-order {
+                .navbar-form {
+                    width: 100%;
+                    margin-left: 20px;
+                    .input-group {
+                        height: 50px;
+                        > i {
+                            top: 23px;
+                            margin-left: -100px;
+                        }
+                        .form-control {
                             @include small-content;
-                            width: 100%;
-                            height: 100%;
+                            height: 130%;
                         }
                     }
-                    .dropdown-menu {
-                        width: 100%;
-                        .dropdown-item {
-                            @include small-content;
-                            padding: 20px;
-                            font-size: 18px !important;
+                }
+                .dr {
+                    width: 100%;
+                    margin-top: 20px;
+                    flex-direction: column;
+                    .dropdown {
+                        height: 60px;
+                        display: flex;
+                        margin-bottom: 20px;
+                        padding-right: 10px;
+                        align-items: center;
+                        justify-content: space-between;
+                        @include small-content;
+                        text-align: left;
+                        .btn-group {
+                            width: 230px;
+                            height: 60px;
+                            .button-order {
+                                @include small-content;
+                                width: 100%;
+                                height: 100%;
+                            }
+                        }
+                        .dropdown-menu {
+                            width: 100%;
+                            .dropdown-item {
+                                @include small-content;
+                                padding: 20px;
+                                font-size: 18px !important;
+                            }
                         }
                     }
                 }
@@ -156,17 +201,17 @@
             background-color: rgba($violet, 0.03);
             &.validated {
                 border: 1px solid rgba($violet, 0.1);
-                background-color: rgba($green, 0.2);
+                background-color: rgba($green, 0.3);
             }
             &.refused {
                 border: 1px solid rgba($violet, 0.1);
-                background-color: rgba($red, 0.1);
+                background-color: rgba($red, 0.3);
             }
         }
         .votes {
             @include content;
             font-size: 20px;
-            margin-left: 30px;
+            margin-left: 5%;
             .like {
                 color: $green;
             }
@@ -184,7 +229,9 @@
                 margin-right: 20px;
             }
             .votes {
-                display: none;
+                width: 15%;
+                font-size: 16px;
+                margin: 0px 15px 0px 0px;
             }
         }
     }
@@ -293,6 +340,9 @@
         .modal-footer {
             @include content;
             text-align: right;
+            > button {
+                min-width: 80px;
+            }
         }
         .edit-body {
             textarea {
@@ -306,10 +356,22 @@
 
             }
         }
+        @media screen and (max-width: 500px) {
+            .modal-edit-dialog {
+                height: 100vh;
+                .modal-content {
+                    height: 100vh;
+                    .textarea {
+                        height: 55vh;
+                    }
+                }
+            }
+        }
     }
     button {
         > a {
             text-decoration: none;
+            justify-content: center;
         }
     }
 }

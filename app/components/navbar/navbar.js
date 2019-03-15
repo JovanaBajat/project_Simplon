@@ -1,5 +1,7 @@
 let navbar = {
-    bindings: {},
+    bindings: {
+        get: "="
+    },
     templateUrl: require('./navbar.html'),
     styleUrls: ['navbar.css'],
     controller: class appCtrl {
@@ -78,6 +80,7 @@ let navbar = {
                     $http({ method: 'DELETE', url: 'http://localhost:8888/usr/delete/' + $scope.selected.usr_id })
                     .then(function (response) {
                     $scope.response = response;
+                    $scope.navbarCtrl.get();
                     })
                     .catch(function (err) {});
                 })

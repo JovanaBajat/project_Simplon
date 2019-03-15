@@ -15,6 +15,7 @@ a {
     padding-left: 30px;
     padding-right: 30px;
     background-color: $violet;
+    border: none;
     @media screen and (max-width: 500px) {
         width: 100%;
     }

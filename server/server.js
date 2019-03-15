@@ -4,7 +4,6 @@ const router = require('./router/router');
 const cors = require('cors');
 const { validateToken } = require('./authentication');
 const jwt = require("jsonwebtoken");
-//const email = require('./email');
 const server = express()
 
 server.use(cors());
@@ -20,13 +19,15 @@ server.get('/authenticate', (req, res) => {
     if (!req.cookies.token) {
         res.status(500).send("Vous n'êtes pas authentifié");
     } else {
+        // On prends le token dans les cookies
         const { token } = req.cookies;
+        // On prends la variable d'environnement contenant le secret du JWT
         const secret = process.env.JWT_SECRET;
+        // On le vérifie
         jwt.verify(token, secret, (err, decoded) => {
             // Si le token n'est pas authentifié
             if (err) {
-                console.log("JWT invalide", req.path, err);
-                res.clearCookie();
+                res.clearCookie(token);
                 return res.status(500).send();
             }
             res.status(200).send();

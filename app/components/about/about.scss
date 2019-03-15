@@ -5,4 +5,18 @@
     background-position: center; 
     background-repeat: no-repeat; 
     background-image: url("https://hdwallsource.com/img/2014/9/blur-26347-27038-hd-wallpapers.jpg"); 
+    .about-text {
+        @include title;
+        padding: 50px;
+        margin: 100px;
+        border-radius: 5px;
+        border: 1px solid $violet;
+        @media screen and (max-width: 500px) {
+            margin: 50px 20px;
+            padding: 10px;
+        }
+    }
+    @media screen and (max-width: 500px) {
+        height: 130%;
+    }
 }
